@@ -20,4 +20,7 @@ class StaffProfile extends Model
     public function educations(){
         return $this->belongsTo('App\Models\EducationList','EDUCATION' );
     }
+    public function reservation(){
+        return $this->hasMany('App\Models\reservation','id');
+    }
 }

@@ -9,7 +9,7 @@
     <div class="row" >
         <div class="card">
             <div class="card-header">
-              <form action="/paymentlist" method="get">
+              <form action="" method="get">
                 <div class="input-group">
                     <select name="searchby" id="" class="form-control">
                         <option value="" selected></option>
@@ -56,7 +56,7 @@
                              
                              
                              
-                            <th ><a href="{{url("/salary/reservation/$profile->id")}}" class="btn btn-warning"    > ကြိုတင်စာရင်းထဲ့ရန် </a> </th>
+                            <th ><a href="{{url("/reservation/$profile->id")}}" class="btn btn-warning"> ကြိုတင်စာရင်းထဲ့ရန် </a> </th>
                             
                         </tr>
                             @endforeach

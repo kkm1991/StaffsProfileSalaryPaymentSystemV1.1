@@ -36,7 +36,13 @@ Route::get('/status/change/{id}',[StaffProfileController::class,'statuschange'])
 Route::get('/paymentlist',[StaffProfileController::class,'showstatuslist']);
 Route::get('/deductandadd',[StaffProfileController::class,'deductionadding']);
 
-Route::post('/salary/reservation/{id}',[reservationController::class,'add']);
-Route::get('/salary/reservation/{id}',[reservationController::class,'show']);
+
+
+Route::get('/reservation/{id}',[reservationController::class,'show']);
+Route::post('/reservation/add',[reservationController::class,'create']);
+Route::post('/reservation/update',[reservationController::class,'update']);
+ 
+
+//Route::get('/salary/reservation/{id}',[reservationController::class,'show']);
 
 Route::post('/department/add',[WorkingDepController::class,'add']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\reservation;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\StaffProfile;
@@ -13,35 +14,54 @@ use App\Models\WorkingDepList;
 
 class reservationController extends Controller
 {
-    public function add($id){
-         $addreservation=new reservation;
-         $addreservation->rareCost=request()->rareCost;
-         $addreservation->bonus=request()->bonus;
-         $addreservation->attendedBonus=request()->attendedBonus;
-         $addreservation->busFee=request()->busFee;
-         $addreservation->mealDeduct=request()->mealDeduct;
-         $addreservation->absence=request()->absence;
-         $addreservation->ssbFee=request()->ssbFee;
-         $addreservation->fine=request()->fine;
-         $addreservation->redeem=request()->redeem;
-         $addreservation->otherDeductLable=request()->otherDeductLable;
-         $addreservation->otherDeduct=request()->otherDeduct;
-         $addreservation->staff_id=$id;
-         $addreservation->save();
-         
-
-    }
+     
     public function show($id){
-        $currentMonth = now()->month;
-        $showreservation=reservation::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->get();
-      
-        if($showreservation->count()>0){
-        return view('salarypayments.reservation',['showreserve'=>$showreservation]);
-        
-       }
-       else{
-        return view('salarypayments.addreservation');
-       }
+        $currentMonth = Carbon::now()->format('m');
+        $currentYear = Carbon::now()->format('Y');
+        $checkreservation=reservation::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
+        $staffinfo=StaffProfile::find($id);
+        if($checkreservation->count()>0){
+            return view('Reservation.showreservation',['showreservation'=>$checkreservation],['staffid'=>$staffinfo]);
+        }
+        else{
+            return view('Reservation.newreservation',['staffid'=>$staffinfo]);
+        }
+       
+         
+    }
+    public function create(){
+        $addreservation=new reservation;
+        $addreservation->rareCost=request()->rareCost;
+        $addreservation->bonus=request()->bonus;
+        $addreservation->attendedBonus=request()->attendedBonus;
+        $addreservation->busFee=request()->busFee;
+        $addreservation->mealDeduct=request()->mealDeduct;
+        $addreservation->absence=request()->absence;
+        $addreservation->ssbFee=request()->ssbFee;
+        $addreservation->fine=request()->fine;
+        $addreservation->redeem=request()->redeem;
+        $addreservation->otherDeductLable=request()->otherDeductLable;
+        $addreservation->otherDeduct=request()->otherDeduct;
+        $addreservation->staff_id=request()->staffid ;
+         
+        $addreservation->save();
+        return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
+    }
+    public function update(){
+        $updatereservation=reservation::find(request()->reservation_id);
+        $updatereservation->rareCost=request()->rareCost;
+        $updatereservation->bonus=request()->bonus;
+        $updatereservation->attendedBonus=request()->attendedBonus;
+        $updatereservation->busFee=request()->busFee;
+        $updatereservation->mealDeduct=request()->mealDeduct;
+        $updatereservation->absence=request()->absence;
+        $updatereservation->ssbFee=request()->ssbFee;
+        $updatereservation->fine=request()->fine;
+        $updatereservation->redeem=request()->redeem;
+        $updatereservation->otherDeductLable=request()->otherDeductLable;
+        $updatereservation->otherDeduct=request()->otherDeduct;
+        $updatereservation->save();
+        return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
         
     }
 }
