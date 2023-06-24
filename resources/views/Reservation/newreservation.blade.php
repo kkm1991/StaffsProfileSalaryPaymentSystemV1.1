@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-success ">
                 New Reservation Form  for - Staff   : {{$staffid->Name}}
             </div>
             <div class="card-body">

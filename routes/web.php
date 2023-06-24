@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\educationController;
+use App\Http\Controllers\positionController;
 use App\Http\Controllers\reservationController;
+use App\Http\Controllers\salaryController;
 use App\Http\Controllers\WorkingDepController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffProfileController;
@@ -43,6 +46,10 @@ Route::post('/reservation/add',[reservationController::class,'create']);
 Route::post('/reservation/update',[reservationController::class,'update']);
  
 
-//Route::get('/salary/reservation/{id}',[reservationController::class,'show']);
+
 
 Route::post('/department/add',[WorkingDepController::class,'add']);
+Route::post('/position/add',[positionController::class,'add']);
+Route::post('/education/add',[educationController::class,'add']);
+
+Route::get('/paysalary/{id}',[salaryController::class,'addsalary']);

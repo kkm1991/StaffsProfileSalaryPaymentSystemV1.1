@@ -5,8 +5,8 @@
         <div class="card">
             @foreach($showreservation as $showreserve)
             
-            <div class="card-header">
-                Reservation of - Staff   : {{$staffid->Name}} Created:  {{$showreserve->created_at->diffForHumans()}}
+            <div class="card-header text-success strong">
+                Reservation of - Staff   : {{$staffid->Name}} <br> <span class="text-primary"> Created:  {{$showreserve->created_at->diffForHumans()}} </span>
             </div>
             <div class="card-body">
                 <form action="{{url('/reservation/update')}}" method="post" enctype="multipart/form-data">

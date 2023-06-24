@@ -18,7 +18,7 @@
                         <option value="{{$dep->id}}">{{$dep->dep_name}}</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="btn btn-success">ဌာနအလိုက်ရှာရန်</button><br>
+                    <button type="submit" class="btn btn-success ">ဌာနအလိုက်ရှာရန်</button><a class="btn btn-primary " style="border: 10%" href="{{url('/profile/add')}}"    ><img src="{{ asset('storage/logos/Sign In.png') }}" alt="Logo"width="25" height="25">  ဝန်ထမ်းအသစ်ထဲ့ရန်  </a>
                 </div>
             </form>  
                    
@@ -65,22 +65,22 @@
                          
                             <!--ဓါတ်ပုံ-->
                             <th  >
-                                <img class="img-thumbnail mb-3" src="{{ asset('storage/staffimages/' . $profile->PHOTO_NAME) }}" alt="{{ $profile->PHOTO_NAME }}" width="200">
+                                <img class="img-thumbnail mb-3" src="{{ asset('storage/staffimages/' . $profile->PHOTO_NAME) }}" alt="{{ $profile->PHOTO_NAME }}" width="100">
                             </th>
                             <!--STATUS ပြင်-->
                             <th  >@if($profile->STATUS==1)
-                                <a href="{{url("/status/change/$profile->id")}}" class="btn btn-success small"  >ACTIVE</a>
+                                <a href="{{url("/status/change/$profile->id")}}" class="btn btn-success btn-sm"  >ACTIVE</a>
                             
                                  @elseif($profile->STATUS==0)
-                                 <a href="{{url("/status/change/$profile->id")}}" class="btn btn-danger"  >INACTIVE</a>    
+                                 <a href="{{url("/status/change/$profile->id")}}" class="btn btn-danger btn-sm"  >INACTIVE</a>    
                                  @endif
                             </th>
-                            <th ><a href="{{url("/profile/edit/$profile->id")}}" class="btn btn-warning"    > EDIT </a></th>
+                            <th ><a href="{{url("/profile/edit/$profile->id")}}" class="btn btn-warning btn-sm"    >  EDIT </a></th>
 
 
 
                             <!-- delete button and confirm modal-->
-                            <th ><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{$profile->id}}">
+                            <th ><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{$profile->id}}">
                                 DELETE
                               </button>
                             

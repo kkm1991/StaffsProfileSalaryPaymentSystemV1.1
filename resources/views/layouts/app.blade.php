@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+     
 </head>
 <body>
     <div id="app">
@@ -38,10 +39,10 @@
                               ဝန်ထမ်းရေးရာ
                             </a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{url('/profile/add')}}"    ><img src="{{ asset('storage/logos/Sign In.png') }}" alt="Logo"width="25" height="25">  ဝန်ထမ်းအသစ်ထဲ့ရန်  </a></li>
+                              
                               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#departmentModal"   ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  အလုပ်ဌာန  </a></li>
-                              <li><a class="dropdown-item" href="{{url('/position/add')}}"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ရာထူး  </a></li>
-                              <li><a class="dropdown-item" href="{{url('/education/add')}}"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
+                              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#positionModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ရာထူး  </a></li>
+                              <li><a class="dropdown-item" data-bs-toggle="modal"data-bs-target="#educationModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
                             </ul>
                           </li>
                           <li class="nav-item"><a href="{{url('/paymentlist')}}" class="nav-link text-success"  ><img src="{{ asset('storage/logos/salary-icon-3.png') }}" alt="Logo"width="25" height="25">  လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
@@ -113,6 +114,62 @@
               </div>
             </div>
           </div>
+          <!-- ရာထူးအမည်သစ်ထဲ့ရန် modal -->
+        <div class="modal fade" id="positionModal" tabindex="-1" aria-labelledby="positionModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">ရာထူးအမည်သစ်ထဲ့ရန်</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url('/position/add')}}" method="POST">
+                        @csrf
+                        <!-- Form fields -->
+                        <div class="form-group">
+                            <label for="name">ရာထူးအမည်</label><br>
+                            <input type="text" class="form-control" id="positionname" name="positionname" required>
+                        </div><br>
+                        
+                        <!-- Additional form fields... -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                   
+                </div>
+              </div>
+            </div>
+          </div>
+
+ <!-- ပညာအရည်အချင်းအမည်သစ်ထဲ့ရန် modal -->
+ <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ပညာအရည်အချင်း အမည်သစ်ထဲ့ရန်</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{url('/education/add')}}" method="POST">
+                @csrf
+                <!-- Form fields -->
+                <div class="form-group">
+                    <label for="name">ပညာအရည်အချင်းအမည်</label><br>
+                    <input type="text" class="form-control" id="eduname" name="eduname" required>
+                </div><br>
+                
+                <!-- Additional form fields... -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+           
+        </div>
+      </div>
+    </div>
+  </div>
+
         <main class="py-4">
             @yield('content')
         </main>
