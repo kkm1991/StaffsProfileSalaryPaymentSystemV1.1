@@ -7,11 +7,11 @@
 <div class="container"  >
      
     <div class="row" >
+        @if(session('warning')) <!-- profile deleted alert -->
+            <div id="session-alert" class="alert alert-warning">{{session('warning')}}
+            @endif
         <div class="card">
             <div class="card-header">
-                @if(session('warning')) <!-- profile deleted alert -->
-                    <div class="alert alert-info">{{session('warning')}}</div>
-                @endif
               <form action="" method="get">
                 <div class="input-group">
                     <select name="searchby" id="" class="form-control">
@@ -48,16 +48,18 @@
                         <!-- Add more rows and data here -->
                         <tbody>
                             @foreach ($profiles as $profile)
-                            <tr  >
-                            <th  >{{$profile->id}}</th>
-                            <th  >{{$profile->Name}}</th>
-                            <th>{{$profile->workingdeps->dep_name}}</th>
-                            <th>{{$profile->positions->position_name}}</th>
-                            <th  >{{$profile->BASIC_SALARY}}</th>
-                            <th  >{{$profile->DEBT}}</th>
+                            <tr  class="">
+                            <td>{{$profile->id}}</th>
+                            <td>{{$profile->Name}}</th>
+                            <td>{{$profile->workingdeps->dep_name}}</th>
+                            <td>{{$profile->positions->position_name}}</th>
+                            <td  >{{$profile->BASIC_SALARY}}</th>
+                            <td  >{{$profile->DEBT}}</th>
                              
-                            <th ><a href="{{url("/reservation/$profile->id")}}" class="btn btn-warning btn-sm "> ကြိုတင်စာရင်းထဲ့ရန် </a></th>
-                            <th ><a href="{{url("/paysalary/$profile->id?basic_salary=$profile->BASIC_SALARY ")}}" class="btn btn-success btn-sm "> လစာပေးရန် </a></th>
+                            <td ><a href="{{url("/reservation/$profile->id")}}" class="btn btn-warning btn-sm "> ကြိုတင်စာရင်းထဲ့ရန် </a>   {{" "}}
+
+                                <a href="{{url("/paysalary/$profile->id?basic_salary=$profile->BASIC_SALARY&work_dep=$profile->WORK_DEP ")}}" class="btn btn-success btn-sm "> လစာပေးရန် </a></td>
+                            
                         </tr>
                             @endforeach
                         </tbody>
@@ -69,5 +71,4 @@
     </div>
 </div>
  
-
 @endsection

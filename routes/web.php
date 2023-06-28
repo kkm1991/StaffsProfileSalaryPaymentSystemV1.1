@@ -53,3 +53,6 @@ Route::post('/position/add',[positionController::class,'add']);
 Route::post('/education/add',[educationController::class,'add']);
 
 Route::get('/paysalary/{id}',[salaryController::class,'addsalary']);
+
+Route::get('/salaries',[salaryController::class,'showsalary']);
+Route::get('/salary/delete/{id}',[salaryController::class,'deletesalary']);

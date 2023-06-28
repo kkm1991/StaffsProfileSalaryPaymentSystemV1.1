@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\EducationList;
 use App\Models\PositionList;
+use App\Models\Salary;
 use App\Models\StaffProfile;
 use App\Models\WorkingDepList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class StaffProfileController extends Controller
@@ -26,9 +28,11 @@ class StaffProfileController extends Controller
    }
     
    public function showstatuslist(){
+       
       $searchbydep=WorkingDepList::all();
       if(request()->searchby==""){
          $table=StaffProfile::all()->where('STATUS',1);
+
       }
       else{
          
@@ -36,7 +40,7 @@ class StaffProfileController extends Controller
          ->where('WORK_DEP', request()->searchby)
          ->get();}
           
-      return view('StaffProfiles.paymentlist',['profiles'=>$table],['deps'=>$searchbydep]);
+      return view('StaffProfiles.paymentlist',['profiles'=>$table],['deps'=>$searchbydep] );
    }
    public function deductionadding(){
       return view('StaffProfiles.deduction_adding');

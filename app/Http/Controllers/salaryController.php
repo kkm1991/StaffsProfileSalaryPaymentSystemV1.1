@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WorkingDepList;
 use Illuminate\Http\Request;
 use App\Models\Salary;
 use App\Models\reservation;
+use App\Models\StaffProfile;
 use Illuminate\Support\Carbon;
 class salaryController extends Controller
 {
@@ -16,7 +18,7 @@ class salaryController extends Controller
         if($checkreservation->count()>0){
             $checksalary=Salary::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
             if($checksalary->count()>0){
-                return redirect('/paymentlist')->with('warning','ယခုဝန်ထမ်းသည်လစာပေးပြီးသားဖြစ်ပါသည်');
+                return redirect('/paymentlist')->with('warningpaysalary','ယခုဝန်ထမ်းသည်လစာပေးပြီးသားဖြစ်ပါသည်');
             }
             else{
                 $basicsalary=$request->query('basic_salary');
@@ -53,9 +55,11 @@ class salaryController extends Controller
                         $paysalary->otherDeductLable=$otherDeductLable;
                         $paysalary->otherDeduct=$otherDeduct;
                         $paysalary->staff_id=$staff_id;
+                        $paysalary->dep=$request->query('work_dep');
                         $paysalary->Final_Total= $Final_Total;
                         $paysalary->save();
-                        return redirect('/paymentlist');
+                        $message="ဝန်ထမ်း  ".$reservation->staffprofile->Name." သည်လစာပေးစာရင်းထဲ့ဝင်သွားပါပြီ"  ;
+                        return redirect('/paymentlist')->with('success',$message);
     
                     
                      }
@@ -69,6 +73,44 @@ class salaryController extends Controller
 
     }
     public function showsalary(){
-        
+        $currentMonth = Carbon::now()->format('m');
+        $currentYear = Carbon::now()->format('Y');
+        $selecteddep=request()->input('searchby');
+        $selectedMonth=request()->input('monthPicker');
+        $serachbydep=WorkingDepList::all();
+         if(request()->searchby=="" ){
+            if($selectedMonth){
+                return back()->with('warning',"ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
+            }
+            else{
+                $salaries=Salary::whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
+            }
+           
+         }
+         else{
+             
+            
+            if($selecteddep && $selectedMonth){
+                $selectedYear=\Carbon\Carbon::createFromFormat('Y-m',$selectedMonth)->format('Y');
+                $salaries=Salary::whereMonth('created_at',$selectedMonth)->whereYear('created_at',$selectedYear)->whereHas('deps',function ($query)use($selecteddep){
+                    $query->where('dep_name',$selecteddep);
+                })->get();
+            }
+            else{
+                return back()->with('warning',"ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
+            }
+            
+         }
+       // $checkreservation=reservation::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
+       
+        return view('Salaries.salary',['salaries'=>$salaries],['deps'=>$serachbydep]);
+    }
+    public function deletesalary($id,Request $request){
+        $currentMonth = Carbon::now()->format('m');
+        $currentYear = Carbon::now()->format('Y');
+        $salarydelete=Salary::find($id);
+        $salarydelete->delete();
+        $deletedmessage=$request->query('profileName');
+        return redirect('/salaries')->with('deleted',"ဝန်ထမ်း $deletedmessage ကို ($currentMonth/$currentYear) လစာပေးစာရင်းမှဖျက်ပြီးပါပြီ");
     }
 }

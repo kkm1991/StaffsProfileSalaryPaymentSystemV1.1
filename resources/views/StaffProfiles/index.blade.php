@@ -51,40 +51,40 @@
                         <!-- Add more rows and data here -->
                         <tbody>
                             @foreach ($profiles as $profile)
-                            <tr  >
-                            <th  >{{$profile->id}}</th>
-                            <th  >{{$profile->Name}}</th>
-                            <th  >{{$profile->Father_Name}}</th>
-                            <th  >{{$profile->NRC}}</th>
-                            <th  >{{$profile->DOB}}</th>
-                            <th>{{$profile->educations->education}}</th>
-                            <th>{{$profile->workingdeps->dep_name}}</th>
-                            <th>{{$profile->positions->position_name}}</th>
-                            <th  >{{$profile->BASIC_SALARY}}</th>
-                            <th  >{{$profile->DEBT}}</th>
+                            <tr>
+                            <td>{{$profile->id}}</th>
+                            <td>{{$profile->Name}}</th>
+                            <td>{{$profile->Father_Name}}</th>
+                            <td>{{$profile->NRC}}</th>
+                            <td>{{$profile->DOB}}</th>
+                            <td>{{$profile->educations->education}}</th>
+                            <td>{{$profile->workingdeps->dep_name}}</th>
+                            <td>{{$profile->positions->position_name}}</th>
+                            <td>{{$profile->BASIC_SALARY}}</th>
+                            <td>{{$profile->DEBT}}</th>
                          
                             <!--ဓါတ်ပုံ-->
-                            <th  >
+                            <td  >
                                 <img class="img-thumbnail mb-3" src="{{ asset('storage/staffimages/' . $profile->PHOTO_NAME) }}" alt="{{ $profile->PHOTO_NAME }}" width="100">
-                            </th>
+                            </td>
                             <!--STATUS ပြင်-->
-                            <th  >@if($profile->STATUS==1)
+                            <td  >@if($profile->STATUS==1)
                                 <a href="{{url("/status/change/$profile->id")}}" class="btn btn-success btn-sm"  >ACTIVE</a>
                             
                                  @elseif($profile->STATUS==0)
                                  <a href="{{url("/status/change/$profile->id")}}" class="btn btn-danger btn-sm"  >INACTIVE</a>    
                                  @endif
-                            </th>
-                            <th ><a href="{{url("/profile/edit/$profile->id")}}" class="btn btn-warning btn-sm"    >  EDIT </a></th>
+                            </td>
+                            <td><a href="{{url("/profile/edit/$profile->id")}}" class="btn btn-warning btn-sm"    >  EDIT </a></th>
 
 
 
                             <!-- delete button and confirm modal-->
-                            <th ><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{$profile->id}}">
+                            <td><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{$profile->id}}">
                                 DELETE
                               </button>
                             
-                            </th>
+                            </td>
                             <div class="modal fade" id="deleteModal{{$profile->id}}" tabindex="-1" aria-labelledby="deleteModalLabel{{$profile->id}}" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
