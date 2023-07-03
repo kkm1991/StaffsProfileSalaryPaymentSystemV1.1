@@ -28,7 +28,8 @@
          </div> 
             <table class="table">
                 <thead>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;border-top-left-radius: 5px;">အမည်</th>
+                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;border-top-left-radius: 5px;">နေ့စွဲ</th>
+                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">အမည်</th>
                     <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ဌာန</th>
                     <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">အခြေခံလစာ</th>
                     <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ရှားပါးစာရိတ်</th>
@@ -53,6 +54,7 @@
                     @endphp
                   
                     <tr>
+                        <td style="color: #46b31e ;">{{$salary->created_at}}</td>
                         <td style="font-weight: bold;">{{$salary->profiles->Name}}</td>
                         <td style="font-weight: bold;">{{$salary->deps->dep_name}}</td>
                         <td style="color: #46b31e ;">{{$salary->basicSalary}}</td>
