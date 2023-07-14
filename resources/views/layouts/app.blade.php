@@ -45,7 +45,7 @@
                               <li><a class="dropdown-item" data-bs-toggle="modal"data-bs-target="#educationModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
                             </ul>
                           </li>
-                          <li class="nav-item"><a href="{{url('/paymentlist')}}" class="nav-link text-success"  ><img src="{{ asset('storage/logos/salary-icon-3.png') }}" alt="Logo"width="25" height="25">  လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
+                          <li class="nav-item"><a href="{{url('/paymentlist')}}" class="nav-link text-success"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
                           <li class="nav-item"><a href="{{url('/salaries')}}" class="nav-link text-success"  >   လစာ စာရင်း</a></li>
                     </ul>
 

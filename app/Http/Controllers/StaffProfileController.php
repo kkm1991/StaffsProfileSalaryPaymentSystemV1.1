@@ -30,15 +30,20 @@ class StaffProfileController extends Controller
    public function showstatuslist(){
        
       $searchbydep=WorkingDepList::all();
-      if(request()->searchby==""){
-         $table=StaffProfile::all()->where('STATUS',1);
-
-      }
-      else{
+      //ယခုလတွက်လစာပေးပြီးသား သူတွေကိုမပြပဲ ပေးရန်ကျန်တဲ့သူတွေကိုသာပြရန်
+      $staffIds = Salary::pluck('staff_id')->toArray();
+      if (request()->searchby == "") {
          
          $table = StaffProfile::where('STATUS', 1)
-         ->where('WORK_DEP', request()->searchby)
-         ->get();}
+            ->whereNotIn('id', $staffIds)
+            ->get();
+      } else {
+         $table = StaffProfile::where('STATUS', 1)
+            ->where('WORK_DEP', request()->searchby)
+            ->whereNotIn('id',$staffIds)
+            ->get();
+      }
+   
           
       return view('StaffProfiles.paymentlist',['profiles'=>$table],['deps'=>$searchbydep] );
    }

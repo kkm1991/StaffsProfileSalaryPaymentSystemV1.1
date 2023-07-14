@@ -10,6 +10,10 @@
         @if(session('warning')) <!-- profile deleted alert -->
             <div id="session-alert" class="alert alert-warning">{{session('warning')}}
             @endif
+            @if(session('alreadypay'))
+            <div id="session-alert" class="alert alert-warning">{{session('alreadypay')}}</div>
+            @endif
+            
         <div class="card">
             <div class="card-header">
               <form action="" method="get">

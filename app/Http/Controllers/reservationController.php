@@ -48,6 +48,7 @@ class reservationController extends Controller
         return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
     }
     public function update(){
+        
         $updatereservation=reservation::find(request()->reservation_id);
         $updatereservation->rareCost=request()->rareCost;
         $updatereservation->bonus=request()->bonus;
