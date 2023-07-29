@@ -11,4 +11,5 @@ class WorkingDepList extends Model
     public function staffbydep(){
         return $this->hasMany('App\Models\StaffProfile','id');
       }
+       
 }

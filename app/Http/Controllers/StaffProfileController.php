@@ -19,10 +19,10 @@ class StaffProfileController extends Controller
     $searchbydep=WorkingDepList::all();
     if(request()->searchby=="")
     {
-      $table=StaffProfile::latest()->paginate(10);
+      $table=StaffProfile::latest()->get();
     }
     else{
-      $table=StaffProfile::where('WORK_DEP',request()->searchby)->latest()->paginate(10);
+      $table=StaffProfile::where('WORK_DEP',request()->searchby)->latest()->get();
     }
     return view('StaffProfiles.index',['profiles'=>$table],['deps'=>$searchbydep]);
    }
@@ -76,7 +76,6 @@ class StaffProfileController extends Controller
    public function create(){
       $validator=validator((request()->all()),[
          'staffname'=>'required',
-         'nrc'=>'required',
          'working_dep_list'=>'required',
          'position_list'=>'required',
          'basic_salary'=>'required',
@@ -155,5 +154,9 @@ class StaffProfileController extends Controller
       $deletep->delete();
       Storage::disk('public')->delete('staffimages/'.$todeleteimg);
       return redirect('/')->with('success','Profile successfully deleted');
+   }
+   public function staffcard($id){
+      $forstaffcard=StaffProfile::find($id);
+      return view('StaffProfiles.staffcard',['forstaffcard'=>$forstaffcard]);
    }
 }

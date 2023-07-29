@@ -18,11 +18,16 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Example for linking the favicon -->
+     <link rel="shortcut icon" type="x-icon" href="storage/logos/bsmlogo.png">
+     <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\brands.css">
+     <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\fontawesome.css">
+     <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\solid.css">
      
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-success shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -35,7 +40,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-success" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle border rounded-pill text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               ဝန်ထမ်းရေးရာ
                             </a>
                             <ul class="dropdown-menu">
@@ -45,8 +50,9 @@
                               <li><a class="dropdown-item" data-bs-toggle="modal"data-bs-target="#educationModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
                             </ul>
                           </li>
-                          <li class="nav-item"><a href="{{url('/paymentlist')}}" class="nav-link text-success"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
-                          <li class="nav-item"><a href="{{url('/salaries')}}" class="nav-link text-success"  >   လစာ စာရင်း</a></li>
+                          <li class="nav-item"><a href="{{url('/paymentlist')}}" class="nav-link  border rounded-pill text-white"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
+                          <li class="nav-item"><a href="{{url('/salaries')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်း</a></li>
+                          <li class="nav-item"><a href="{{url('/salaries/report')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်းအချုပ်</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

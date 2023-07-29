@@ -179,5 +179,8 @@ class salaryController extends Controller
         $deletedmessage=$request->query('profileName');
         return redirect('/salaries')->with('deleted',"ဝန်ထမ်း $deletedmessage ကို ($currentMonth/$currentYear) လစာပေးစာရင်းမှဖျက်ပြီးပါပြီ");
     }
-    
+    public function report(){
+        return view('Salaries.report');
+    }
+     
 }

@@ -60,9 +60,9 @@
                             <td  >{{$profile->BASIC_SALARY}}</th>
                             <td  >{{$profile->DEBT}}</th>
                              
-                            <td ><a href="{{url("/reservation/$profile->id")}}" class="btn btn-warning btn-sm "> ကြိုတင်စာရင်းထဲ့ရန် </a>   {{" "}}
+                            <td ><a href="{{url("/reservation/$profile->id")}}" class="btn btn-outline-warning btn-sm "> ကြိုတင်စာရင်းထဲ့ရန် </a>   {{" "}}
 
-                                <a href="{{url("/paysalary/$profile->id?basic_salary=$profile->BASIC_SALARY&work_dep=$profile->WORK_DEP ")}}" class="btn btn-success btn-sm "> လစာပေးရန် </a></td>
+                                <a href="{{url("/paysalary/$profile->id?basic_salary=$profile->BASIC_SALARY&work_dep=$profile->WORK_DEP ")}}" class="btn btn-outline-success btn-sm "> လစာပေးရန် </a></td>
                             
                         </tr>
                             @endforeach

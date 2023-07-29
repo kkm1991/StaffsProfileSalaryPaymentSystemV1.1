@@ -4,9 +4,10 @@ use App\Http\Controllers\educationController;
 use App\Http\Controllers\positionController;
 use App\Http\Controllers\reservationController;
 use App\Http\Controllers\salaryController;
+use App\Http\Controllers\StaffProfileController;
 use App\Http\Controllers\WorkingDepController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StaffProfileController;
+ 
  
 
  
@@ -33,6 +34,7 @@ Route::post('/profile/add',[StaffProfileController::class,'create']);
 Route::get('/profile/edit/{id}',[StaffProfileController::class,'editprofile']);
 Route::post('/profile/edit/{id}',[StaffProfileController::class,'updateprofile']);
 Route::get('/profile/delete/{id}',[StaffProfileController::class,'deleteprofile']);
+Route::get('/profile/staffcard/{id}',[StaffProfileController::class,'staffcard']);
 
 Route::get('/status/change/{id}',[StaffProfileController::class,'statuschange']);
 
@@ -55,5 +57,7 @@ Route::post('/education/add',[educationController::class,'add']);
 Route::get('/paysalary/{id}',[salaryController::class,'addsalary']);
 
 Route::get('/salaries',[salaryController::class,'showsalary']);
+Route::get('/salaries/report',[salaryController::class,'report']);
 Route::get('/salary/delete/{id}',[salaryController::class,'deletesalary']);
 Route::get('/salary/report',[salaryController::class,'salaryreport']);
+ 

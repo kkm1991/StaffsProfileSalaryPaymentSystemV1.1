@@ -49,7 +49,7 @@
 </style>
     <div class="print-container">
         
-       <h5 class="center-heading">MitzuTunMyint Co.,ltd ဝန်ထမ်းများ လစာပေးစာရင်း</h5>
+       <h5 class="center-heading"><img src="{{asset("storage/logos/MZTMlogo.jpg")}}"  alt="Logo"width="50" height="50"> MitzuTunMyint Co.,ltd ဝန်ထမ်းများ လစာပေးစာရင်း</h5>
         
         <table class="table" id="table">
             <thead class="table-head">
