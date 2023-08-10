@@ -110,7 +110,7 @@ class salaryController extends Controller
 
 
             $salaries = $salaries->get();
-            return view('Salaries.salary', ['salaries' => $salaries,'deps' => $showdep ,'depforoption'=>$serachbydep,]);
+            return view('Salaries.salary', ['salaries' => $salaries,'deps' => $showdep ,'depforoption'=>$serachbydep,])->with('showtotal',$showdep) ;
         } 
 
         elseif ($action === 'print') {
@@ -134,22 +134,9 @@ class salaryController extends Controller
             return view('Salaries.salariesreport', ['salaries' => $salaries,'deps' => $showdep,'datemonth'=> $selectedMonth]);
 
         } else {
-            if ($selecteddep && $selectedMonth) {
-
-                $startDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->startOfMonth();
-                $endDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->endOfMonth();
-                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime]);
-            } elseif ($selecteddep) {
-                return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
-            } elseif ($selectedMonth) {
-                return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
-            } else {
                 $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear);
-            }
-
-
             $salaries = $salaries->get();
-            return view('Salaries.salary', ['salaries' => $salaries,'depforoption'=>$serachbydep,]);
+            return view('Salaries.salary', ['salaries' => $salaries,'depforoption'=>$serachbydep,'deps' => "ဌာနအားလုံး"]);
         }
 
 

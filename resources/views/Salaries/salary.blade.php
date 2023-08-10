@@ -84,8 +84,8 @@
 
                     <div class="row"  >
                         <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary btn-block"name="action" value="search">ဌာနအလိုက်ရှာရန်</button>
-                            <button type="submit" class="btn btn-primary btn-block" name="action" value="print">
+                            <button type="submit" class="btn btn-primary btn-block" id="btnsearch" name="action" value="search">ဌာနအလိုက်ရှာရန်</button>
+                            <button type="submit" class="btn btn-primary btn-block"id="btnprint" name="action" value="print">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Print</button>
                         </div>
                         
@@ -300,13 +300,20 @@
                 </tbody>
             </table>
             <div class="d-flex float-end ">
-                 
-                <div class=" fw-bolder text-primary   p-2 m-1 text-weight">{{$salary->deps->dep_name}} လစာစုစုပေါင်း </div> 
-                <div class=" fw-bolder text-primary   p-2 m-1">{{$totalsalarybydep}} </div>
-                 
+                 @if(isset($showtotal))
+                 <div id="deptotallable" class=" deptotallable fw-bolder text-primary   p-2 m-1 text-weight">  {{$deps->dep_name}} လစာစုစုပေါင်း</div> 
+                 <div id="totalamount"class="totalamount fw-bolder text-primary   p-2 m-1">  {{$totalsalarybydep}} </div>
+                 @endif
                 
-                
+                 
             </div>
     </div>
- 
+ <script>
+    var setlable= document.querySelector(".deptotallable");
+    var setamount=document.querySelector(".totalamount");
+    document.getElementById("btnsearch").addEventListener("click",function(){
+        setlable.innerHTML= "" ;
+        setamount.innerHTML=  ;
+    });
+ </script>
 @endsection
