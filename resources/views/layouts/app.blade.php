@@ -36,23 +36,23 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle border rounded-pill text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <ul class="navbar-nav  me-auto   ">
+                        <li class="nav-item dropdown  ">
+                            <a class="nav-link dropdown-toggle border text-center rounded-pill text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               ဝန်ထမ်းရေးရာ
                             </a>
                             <ul class="dropdown-menu">
                               
-                              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#departmentModal"   ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  အလုပ်ဌာန  </a></li>
-                              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#positionModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ရာထူး  </a></li>
-                              <li><a class="dropdown-item" data-bs-toggle="modal"data-bs-target="#educationModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
+                              <li><a class="dropdown-item ps-1" data-bs-toggle="modal" data-bs-target="#departmentModal"   ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  အလုပ်ဌာန  </a></li>
+                              <li><a class="dropdown-item ps-1" data-bs-toggle="modal" data-bs-target="#positionModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ရာထူး  </a></li>
+                              <li><a class="dropdown-item ps-1" data-bs-toggle="modal"data-bs-target="#educationModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
                             </ul>
                           </li>
-                          <li class="nav-item"><a href="{{url('/paymentlist')}}" class="nav-link  border rounded-pill text-white"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
-                          <li class="nav-item"><a href="{{url('/salaries')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်း</a></li>
-                          <li class="nav-item"><a href="{{url('/salaries/report')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်းအချုပ်</a></li>
+                          <li class="nav-item text-center p-1"><a href="{{url('/paymentlist')}}" class="nav-link  border rounded-pill text-white"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
+                          <li class="nav-item text-center p-1"><a href="{{url('/salaries')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်း</a></li>
+                          <li class="nav-item text-center p-1"><a href="{{url('/salaries/report')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်းအချုပ်</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

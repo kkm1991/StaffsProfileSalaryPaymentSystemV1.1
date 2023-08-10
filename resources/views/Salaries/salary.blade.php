@@ -68,7 +68,7 @@
                             <label>ဌာနရွေးပါ</label>
                             <select name="searchby" id="" class="form-control">
                                 <option value="" selected></option>
-                                @foreach($deps as $dep)
+                                @foreach($depforoption as $dep)
                                 <option value="{{$dep->id}}">{{$dep->dep_name}}</option>
                                 @endforeach
                             </select>
@@ -94,28 +94,28 @@
             </div> 
          </div> 
             <table class="table">
-                <thead>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;border-top-left-radius: 5px;">နေ့စွဲ</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">အမည်</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ဌာန</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">အခြေခံလစာ</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ရှားပါးစာရိတ်</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Bonus</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ရက်မှန်ကြေး</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ကားခ</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">လစာစုစုပေါင်း</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ထမင်းဖိုး</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">အလုပ်ပျက်ရက်နူတ်</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">လူမှု့ဖူလုံရေး</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ဒဏ်ကြေး</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">ဝန်ထမ်းချေးငွေဆပ်</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">အခြားနူတ်ငွေခေါင်းစဉ်</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">နူတ်ငွေ</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd; ">စုစုပေါင်းလစာ</th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd; "></th>
-                    <th style="background-color: #46b31e; color: #333; padding: 8px; text-align: left; border-bottom: 1px solid #ddd;border-top-right-radius: 5px;"></th>
+                <thead class="table-dark">
+                    <th scope="col">နေ့စွဲ</th>
+                    <th scope="col">အမည်</th>
+                    <th scope="col">ဌာန</th>
+                    <th scope="col">အခြေခံလစာ</th>
+                    <th scope="col">ရှားပါးစာရိတ်</th>
+                    <th scope="col">Bonus</th>
+                    <th scope="col">ရက်မှန်ကြေး</th>
+                    <th scope="col">ကားခ</th>
+                    <th scope="col">လစာစုစုပေါင်း</th>
+                    <th scope="col">ထမင်းဖိုး</th>
+                    <th scope="col">အလုပ်ပျက်ရက်နူတ်</th>
+                    <th scope="col">လူမှု့ဖူလုံရေး</th>
+                    <th scope="col">ဒဏ်ကြေး</th>
+                    <th scope="col">ဝန်ထမ်းချေးငွေဆပ်</th>
+                    <th scope="col">အခြားနူတ်ငွေခေါင်းစဉ်</th>
+                    <th scope="col">နူတ်ငွေ</th>
+                    <th scope="col" >စုစုပေါင်းလစာ</th>
+                    <th scope="col" ></th>
+                    <th scope="col"></th>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                     @foreach($salaries as $salary)
                     @php
                      $profilename=$salary->profiles->Name
@@ -288,9 +288,25 @@
                             </div>
                           </div>
                     </tr>
+                    <tr>
+                        @php
+                            $totalsalarybydep=0;
+                            $totalsalarybydep+=$salary->Final_Total;
+                        @endphp
+                         
+                         
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="d-flex float-end ">
+                 
+                <div class=" fw-bolder text-primary   p-2 m-1 text-weight">{{$salary->deps->dep_name}} လစာစုစုပေါင်း </div> 
+                <div class=" fw-bolder text-primary   p-2 m-1">{{$totalsalarybydep}} </div>
+                 
+                
+                
+            </div>
     </div>
  
 @endsection

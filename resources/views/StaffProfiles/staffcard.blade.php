@@ -82,6 +82,8 @@
       </div>
       <div class="card-footer">
         <!-- Footer content if needed -->
+        <button type="button" ></button>
+        <button type="button" class="btn btn-outline-danger">Cancle</button>
       </div>
     </div>
   </div>

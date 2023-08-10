@@ -50,12 +50,14 @@
     <div class="print-container">
         
        <h5 class="center-heading"><img src="{{asset("storage/logos/MZTMlogo.jpg")}}"  alt="Logo"width="50" height="50"> MitzuTunMyint Co.,ltd ဝန်ထမ်းများ လစာပေးစာရင်း</h5>
+       <div class=" float-end p-2 ms-5 mb-2 fw-bolder border border-info rounded-pill ">{{$datemonth}} လ {{$deps->dep_name}} အတွက်  </div>
         
+       
         <table class="table" id="table">
             <thead class="table-head">
-                <th  >နေ့စွဲ</th>
+                <th  >စဉ်</th>
                 <th  >အမည်</th>
-                <th >ဌာန</th>
+                 
                 <th  >အခြေခံလစာ</th>
                 <th  >ရှားပါးစာရိတ်</th>
                 <th  >Bonus</th>
@@ -75,31 +77,34 @@
             <tbody>
                 @php
                 $totalsum=0;
+                $c=0;
+                
                 @endphp
                 @foreach($salaries as $salary)
+                
                 @php
-                 $profilename=$salary->profiles->Name
+                 $c+=1;
                 @endphp
-              
+             <!-- {{$salary->created_at->format('F Y')}}-->
                 <tr>
-                    <td style="color: hsl(0, 0%, 0%) ;">{{$salary->created_at->format('F Y')}}</td>
-                    <td style="font-weight: bold;">{{$salary->profiles->Name}}</td>
-                    <td style="font-weight: bold;">{{$salary->deps->dep_name}}</td>
-                    <td style="color: #000000 ;">{{$salary->basicSalary}}</td>
-                    <td style="color: #000000 ;">{{$salary->rareCost}}</td>
-                    <td style="color: #000000 ;">{{$salary->bonus}}</td>
-                    <td style="color: #000000 ;">{{$salary->attendedBonus}}</td>
-                    <td style="color: #000000 ;">{{$salary->busFee}}</td>
+                    <td class="fw-bold">{{$c}}</td>
+                    <td style="font-weight: bold">{{$salary->profiles->Name}}</td>
+                    
+                    <td class="fw-bold">{{$salary->basicSalary}}</td>
+                    <td class="fw-bold text-success">{{$salary->rareCost}}</td>
+                    <td class="fw-bold text-success">{{$salary->bonus}}</td>
+                    <td class="fw-bold text-success">{{$salary->attendedBonus}}</td>
+                    <td class="fw-bold text-success">{{$salary->busFee}}</td>
                     <td style="color: 000000; font-weight: bold;">{{$salary->First_Total}}</td>
                     
-                    <td style="color: #000000 ;"> {{$salary->mealDeduct}} </td>
-                    <td style="color: #000000 ;">{{$salary->absence}} </td>
-                    <td style="color: #000000 ;">{{$salary->ssbFee}} </td>
-                    <td style="color: #000000 ;">{{$salary->fine}} </td>
-                    <td style="color: #000000 ;"> {{$salary->redeem}} </td>
-                    <td style="font-weight: bold;"> {{$salary->otherDeductLable}}</td>
-                    <td style="color: #000000 ;"> {{$salary->otherDeduct}}</td>
-                    <td style="color: #000000; font-weight: bold;"> {{$salary->Final_Total}}</td>
+                    <td class="fw-bold text-danger"> {{$salary->mealDeduct}} </td>
+                    <td class="fw-bold text-danger">{{$salary->absence}} </td>
+                    <td class="fw-bold text-danger">{{$salary->ssbFee}} </td>
+                    <td class="fw-bold text-danger">{{$salary->fine}} </td>
+                    <td class="fw-bold text-danger"> {{$salary->redeem}} </td>
+                    <td class="fw-bold "> {{$salary->otherDeductLable}}</td>
+                    <td class="fw-bold text-danger"> {{$salary->otherDeduct}}</td>
+                    <td class="fw-bold"> {{$salary->Final_Total}}</td>
                      @php
                      $totalsum+=$salary->Final_Total
                      @endphp
@@ -108,7 +113,7 @@
                 @endforeach
                 <tr>
                     <td  > </td>
-                    <td  > </td>
+                     
                     <td  > </td>
                     <td  > </td>
                     <td  > </td>
@@ -123,8 +128,8 @@
                     <td  > </td>
                     <td  > </td>
                     <td  > </td>
-                    <td  > စုစုပေါင်း </td>
-                    <td style="color: #000000; font-weight: bold;"> {{$totalsum}} </td>
+                    <td  class=" fw-bold bg-success">စုစုပေါင်း </td>
+                    <td class="fw-bold bg-warning"> {{$totalsum}} </td>
                 </tr>
             </tbody>
         </table>

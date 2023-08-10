@@ -14,6 +14,12 @@
             <div id="session-alert" class="alert alert-warning">{{session('alreadypay')}}</div>
             @endif
             
+            @php
+                $count=0;
+                foreach ($profiles as $profile) {
+                   $count+=1;
+                }
+            @endphp
         <div class="card">
             <div class="card-header">
               <form action="" method="get">
@@ -24,8 +30,10 @@
                         <option value="{{$dep->id}}">{{$dep->dep_name}}</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="btn btn-primary">ဌာနအလိုက်ရှာရန်</button>
+                    <button type="submit" class="btn btn-primary">ဌာနအလိုက်ရှာရန်</button><br>
+                    
                 </div>
+                <div class="card-footer">ဝန်ထမ်းအရေအတွက် {{$count}} ယောက် <input type="text" class="form-control"id="myInput" onkeyup="myFunction()" placeholder="အမည်နှင့်ရှာရန်.."></div>
             </form>  
                    
                 
@@ -35,7 +43,7 @@
                     <div class="alert alert-info">{{session('success')}}</div>
                 @endif
                 <div class="table-responsive">
-                    <table class="table"  >
+                    <table class="table" id="myTable" >
                         <thead>
                             <tr  >
                                 <th  >ID</th>
@@ -74,5 +82,27 @@
         </div>
     </div>
 </div>
- 
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
 @endsection
