@@ -38,6 +38,8 @@ class salaryController extends Controller
                     $paysalary->busFee = $busFee;
                     $paysalary->First_Total = $First_Total;
 
+
+                    $advancesalary=$reservation->advance_salary;
                     $mealDeduct = $reservation->mealDeduct;
                     $absence = $reservation->absence;
                     $ssbFee = $reservation->ssbFee;
@@ -46,8 +48,9 @@ class salaryController extends Controller
                     $otherDeductLable = $reservation->otherDeductLable;
                     $otherDeduct = $reservation->otherDeduct;
                     $staff_id = $reservation->staff_id;
-                    $Final_Total = $First_Total - ($mealDeduct + $absence + $ssbFee + $fine + $redeem + $otherDeduct);
+                    $Final_Total = $First_Total - ($mealDeduct + $absence + $ssbFee + $fine + $redeem + $otherDeduct +$advancesalary);
 
+                    $paysalary->advance_salary=$advancesalary;
                     $paysalary->mealDeduct = $mealDeduct;
                     $paysalary->absence = $absence;
                     $paysalary->ssbFee = $ssbFee;

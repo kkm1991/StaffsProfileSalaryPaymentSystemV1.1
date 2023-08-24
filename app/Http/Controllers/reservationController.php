@@ -42,6 +42,7 @@ class reservationController extends Controller
         $addreservation->redeem=request()->redeem;
         $addreservation->otherDeductLable=request()->otherDeductLable;
         $addreservation->otherDeduct=request()->otherDeduct;
+        $addreservation->advance_salary=request()->advanceSalary;
         $addreservation->staff_id=request()->staffid ;
          
         $addreservation->save();
@@ -61,6 +62,7 @@ class reservationController extends Controller
         $updatereservation->redeem=request()->redeem;
         $updatereservation->otherDeductLable=request()->otherDeductLable;
         $updatereservation->otherDeduct=request()->otherDeduct;
+        $updatereservation->advance_salary=request()->advanceSalary;
         $updatereservation->save();
         return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
         

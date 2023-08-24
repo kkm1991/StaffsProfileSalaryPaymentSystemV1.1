@@ -15,6 +15,7 @@
             left: 0;
             top: 0;
         }
+         
     }
     .center-heading{
         text-align: center;
@@ -54,7 +55,7 @@
         
        
         <table class="table" id="table">
-            <thead class="table-head">
+            <thead class="table-head table-success">
                 <th  >စဉ်</th>
                 <th  >အမည်</th>
                  
@@ -64,6 +65,8 @@
                 <th  >ရက်မှန်ကြေး</th>
                 <th  >ကားခ</th>
                 <th  >လစာစုစုပေါင်း</th>
+
+                <th  >လစာကြိုထုတ်</th>
                 <th  >ထမင်းဖိုး</th>
                 <th  >အလုပ်ပျက်ရက်နူတ်</th>
                 <th  >လူမှု့ဖူလုံရေး</th>
@@ -96,7 +99,8 @@
                     <td class="fw-bold text-success">{{$salary->attendedBonus}}</td>
                     <td class="fw-bold text-success">{{$salary->busFee}}</td>
                     <td style="color: 000000; font-weight: bold;">{{$salary->First_Total}}</td>
-                    
+
+                    <td class="fw-bold text-danger"> {{$salary->advance_salary}} </td>
                     <td class="fw-bold text-danger"> {{$salary->mealDeduct}} </td>
                     <td class="fw-bold text-danger">{{$salary->absence}} </td>
                     <td class="fw-bold text-danger">{{$salary->ssbFee}} </td>
@@ -122,6 +126,7 @@
                     <td  > </td>
                     <td  > </td>
                     
+                    <td  > </td>
                     <td  > </td>
                     <td  > </td>
                     <td  > </td>

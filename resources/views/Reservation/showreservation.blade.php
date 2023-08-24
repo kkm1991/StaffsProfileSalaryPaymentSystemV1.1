@@ -31,8 +31,12 @@
                         <label for="busFee" class="form-label">ကားခ</label>
                         <input type="text" id="busFee" name="busFee" class="form-control"  value="{{$showreserve->busFee}}" >
                     </div>
-                     
+                     <hr>
                     <h5 class="card-title">ဖြတ်တောက်ငွေ</h5>
+                    <div class="mb-3">
+                        <label for="advanceSalary" class="form-label">လစာကြိုတင်ထုတ်ငွေ</label>
+                        <input type="text" id="advanceSalary" name="advanceSalary" class="form-control" value="{{$showreserve->advance_salary}}" >
+                    </div>
                 <div class="mb-3">
                     <label for="mealDeduct" class="form-label">စားစရိတ်နူတ်</label>
                     <input type="text" id="mealDeduct" name="mealDeduct" class="form-control" value="{{$showreserve->mealDeduct}}" >

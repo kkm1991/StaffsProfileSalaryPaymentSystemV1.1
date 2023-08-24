@@ -93,7 +93,7 @@
                 </form>        
             </div> 
          </div> 
-            <table class="table">
+            <table class="table table-hover">
                 <thead class="table-dark">
                     <th scope="col">နေ့စွဲ</th>
                     <th scope="col">အမည်</th>
@@ -104,6 +104,8 @@
                     <th scope="col">ရက်မှန်ကြေး</th>
                     <th scope="col">ကားခ</th>
                     <th scope="col">လစာစုစုပေါင်း</th>
+
+                    <th scope="col">လစာကြိုထုတ်</th>
                     <th scope="col">ထမင်းဖိုး</th>
                     <th scope="col">အလုပ်ပျက်ရက်နူတ်</th>
                     <th scope="col">လူမှု့ဖူလုံရေး</th>
@@ -131,7 +133,8 @@
                         <td style="color: #46b31e ;">{{$salary->attendedBonus}}</td>
                         <td style="color: #46b31e ;">{{$salary->busFee}}</td>
                         <td style="color: blue; font-weight: bold;">{{$salary->First_Total}}</td>
-                        
+
+                         <td style="color: #e40505 ;"> {{$salary->advance_salary}} </td>
                         <td style="color: #e40505 ;"> {{$salary->mealDeduct}} </td>
                         <td style="color: #e40505 ;">{{$salary->absence}} </td>
                         <td style="color: #e40505 ;">{{$salary->ssbFee}} </td>
@@ -140,9 +143,9 @@
                         <td style="font-weight: bold;"> {{$salary->otherDeductLable}}</td>
                         <td style="color: #e40505 ;"> {{$salary->otherDeduct}}</td>
                         <td style="color: blue; font-weight: bold;"> {{$salary->Final_Total}}</td>
-                        <td > <a href="{{url("/salary/delete/$salary->id?profileName=$profilename")}}" class="btn btn-sm"><img src="{{asset("storage/logos/delete_cycle.png")}}"  alt="Logo"width="50" height="50"></a></td>
+                        <td > <a href="{{url("/salary/delete/$salary->id?profileName=$profilename")}}" class="btn btn-sm p-0"><img src="{{asset("storage/logos/delete_cycle.png")}}"  alt="Logo"width="30" height="30"></a></td>
                         <!-- payslip button and modal -->
-                        <td><button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#payslipModal"><img src="{{asset("storage/logos/images.png")}}"  alt="Logo"width="50" height="50"></button></td>
+                        <td><button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#payslipModal"><img src="{{asset("storage/logos/images.png")}}"  alt="Logo"width="30" height="30"></button></td>
                         <div class="modal fade" id="payslipModal" tabindex="-1" aria-labelledby="payslipModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
