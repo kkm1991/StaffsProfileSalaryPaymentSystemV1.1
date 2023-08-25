@@ -42,8 +42,34 @@
                     <input type="text" id="mealDeduct" name="mealDeduct" class="form-control" value="{{$showreserve->mealDeduct}}" >
                 </div>
                 <div class="mb-3">
-                    <label for="absence" class="form-label">အလုပ်ပျက်ရက်နူတ်</label>
-                    <input type="text" id="absence" name="absence" class="form-control" value="{{$showreserve->absence}}" >
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="absence" class="form-label">အလုပ်ပျက်ရက်နူတ်</label>
+                            <input type="text" id="absence" name="absence" class="form-control" value="{{$showreserve->absence}}" >
+                        </div>
+                        <div class="col-6">
+                            <label for="absence" class="form-label">အလုပ်ပျက်ရက်ထဲ့ရန်</label>
+                            <input type="text" id="absenceday"  required name="absenceday" class="form-control"placeholder="အလုပ်ပျက်ရက်ထဲ့ပါ" value="" >
+                            <script>
+                             
+                                    var absence=document.getElementById('absence');
+                                    var absenceday=document.getElementById('absenceday');
+        
+                                    absenceday.addEventListener('input',function(){
+                                      
+                                            var amount=parseInt(absenceday.value)*{{$staffid->BASIC_SALARY}};
+                                            absence.value=amount;
+                                        
+                                        
+                                    
+                                    });
+                                    
+                                
+                            </script>
+                        </div>
+                    </div>
+                     
+
                 </div>
                 <div class="mb-3">
                     <label for="ssbFee" class="form-label">လူမှု့ဖူလုံရေ</label>

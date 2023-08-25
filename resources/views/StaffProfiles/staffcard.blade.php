@@ -82,9 +82,14 @@
       </div>
       <div class="card-footer">
         <!-- Footer content if needed -->
-        <button type="button" ></button>
-        <button type="button" class="btn btn-outline-danger">Cancle</button>
+        <button type="button" class="btn btn-outline-info" >Print</button>
+        <button type="button" onclick="cancleform()" class="btn btn-outline-danger">Cancle</button>
       </div>
     </div>
   </div>
+  <script>
+    function cancleform(){
+      window.location.href="/";
+    }
+  </script>
 @endsection

@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Storage;
 
 class StaffProfileController extends Controller
 {
+   public function __construct()
+{
+ $this->middleware('auth')->except(['index', 'staffcard','showstatuslist']);
+}
+
    public function index(){
-    
-    
+     
     $searchbydep=WorkingDepList::all();
     if(request()->searchby=="")
     {

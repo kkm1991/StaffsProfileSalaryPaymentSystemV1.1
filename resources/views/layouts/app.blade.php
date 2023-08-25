@@ -40,10 +40,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav  me-auto   ">
                         <li class="nav-item dropdown  ">
-                            <a class="nav-link dropdown-toggle border text-center rounded-pill text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle mt-1 border text-center rounded-pill text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               ဝန်ထမ်းရေးရာ
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu ps-1">
                               
                               <li><a class="dropdown-item ps-1" data-bs-toggle="modal" data-bs-target="#departmentModal"   ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  အလုပ်ဌာန  </a></li>
                               <li><a class="dropdown-item ps-1" data-bs-toggle="modal" data-bs-target="#positionModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ရာထူး  </a></li>
