@@ -67,4 +67,35 @@ class reservationController extends Controller
         return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
         
     }
+
+     
+    public function defaultreservationpage(){
+        $currentMonth = Carbon::now()->format('m');
+        $currentYear = Carbon::now()->format('Y');
+        $currentMonthReservation= reservation::whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
+
+            return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation]);
+    }
+
+    public function defaultreservationUpdate($reservationid){
+         
+        
+            $updatereservation=reservation::find($reservationid);
+            $updatereservation->rareCost=request()->rareCost;
+            $updatereservation->bonus=request()->bonus;
+            $updatereservation->attendedBonus=request()->attendedBonus;
+            $updatereservation->busFee=request()->busFee;
+            $updatereservation->mealDeduct=request()->mealDeduct;
+            $updatereservation->absence=request()->absence;
+            $updatereservation->ssbFee=request()->ssbFee;
+            $updatereservation->fine=request()->fine;
+            $updatereservation->redeem=request()->redeem;
+            $updatereservation->otherDeductLable=request()->otherDeductLable;
+            $updatereservation->otherDeduct=request()->otherDeduct;
+            $updatereservation->advance_salary=request()->advanceSalary;
+            $updatereservation->save();
+            return redirect('/default'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
+            
+        
+    }
 }

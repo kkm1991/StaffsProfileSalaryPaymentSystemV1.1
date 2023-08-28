@@ -27,7 +27,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-success shadow-sm">
+        <nav class="navbar  navbar-expand-md navbar-dark bg-success shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -53,6 +53,7 @@
                           <li class="nav-item text-center p-1"><a href="{{url('/paymentlist')}}" class="nav-link  border rounded-pill text-white"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
                           <li class="nav-item text-center p-1"><a href="{{url('/salaries')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်း</a></li>
                           <li class="nav-item text-center p-1"><a href="{{url('/salaries/report')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်းအချုပ်</a></li>
+                          <li class="nav-item text-center p-1"><a href="{{url('/default')}}" class="nav-link border rounded-pill text-white"  >  ကြိုတင်စာရင်း</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

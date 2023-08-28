@@ -11,4 +11,8 @@ class reservation extends Model
     public function staffprofile(){
         return $this->belongsTo('App\Models\StaffProfile','staff_id');
     }
+
+    public function workingdep(){
+        return $this->belongsTo('App\Models\WorkingDepList','WORK_DEP');
+    }
 }
