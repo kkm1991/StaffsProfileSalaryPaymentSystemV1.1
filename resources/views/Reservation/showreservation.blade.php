@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-6">
                             <label for="absence" class="form-label">အလုပ်ပျက်ရက်ထဲ့ရန်</label>
-                            <input type="text" id="absenceday"  required name="absenceday" class="form-control"placeholder="အလုပ်ပျက်ရက်ထဲ့ပါ" value="" >
+                            <input type="text" id="absenceday"    name="absenceday" class="form-control"placeholder="အလုပ်ပျက်ရက်ထဲ့ပါ" value="" >
                             <script>
                              
                                     var absence=document.getElementById('absence');
@@ -57,7 +57,7 @@
         
                                     absenceday.addEventListener('input',function(){
                                       
-                                            var amount=parseInt(absenceday.value)*{{$staffid->BASIC_SALARY}};
+                                            var amount=parseInt(absenceday.value)*({{$staffid->BASIC_SALARY}}/30);
                                             absence.value=amount;
                                         
                                         

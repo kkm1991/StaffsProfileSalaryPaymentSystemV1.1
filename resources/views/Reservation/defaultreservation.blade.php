@@ -17,17 +17,42 @@
     </div>
     
     <div class="card shadow">
-        <div class="form-floating">
+
+        <div class="form-floating m-2">
             <textarea class="form-control" onkeyup="searchfunction()" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
             <label for="floatingTextarea">ဝန်ထမ်းအမည်နှင့်ရှာရန်</label>
-          </div>
+        </div>
          
-             
-            
-        
-        
-        
-
+        <div class=" m-2">
+            @php
+                $count=0;
+                $rareCost=0;
+                $bonus=0;
+                $attendedBonus=0;
+                $busFee=0;
+                $advance_salary=0;
+                $mealDeduct=0;
+                $absence=0;
+                $ssbFee=0;
+                $fine=0;
+                $redeem=0;
+                $otherDeduct=0;
+                foreach ($reservation as $reservationData) {
+                  $count=$count+1;
+                  $rareCost+= $reservationData->rareCost  ;
+                  $bonus+= $reservationData->bonus;
+                  $attendedBonus+= $reservationData->attendedBonus;
+                  $busFee+= $reservationData->busFee;
+                  $advance_salary+= $reservationData->advance_salary;
+                  $mealDeduct+= $reservationData->mealDeduct;
+                  $absence+= $reservationData->absence;
+                  $ssbFee+= $reservationData->ssbFee;
+                  $fine+= $reservationData->fine;
+                  $redeem+= $reservationData->redeem;
+                  $otherDeduct+= $reservationData->otherDeduct;
+                }
+            @endphp
+        </div>
         <table class=" table table-hover table-bordered" id="myTable">
             <thead class="table-success">
                 <th>အမည်</th>
@@ -49,6 +74,7 @@
             </thead>
            <tbody>
                     @foreach($reservation as $reservationData)
+                       
                          <tr>
                            <input type="hidden" name="ReservationId" value="{{$reservationData->id}}">
                             <td class="fw-bold  ">{{$reservationData->staffprofile->Name}}</td>
@@ -122,26 +148,16 @@
                         <div class="col-6">
                             <label for="absenceday" class="form-label">အလုပ်ပျက်ရက်ထဲ့ရန်</label>
                             <input type="text" id="absenceday"    name="absenceday" class="form-control"placeholder="အလုပ်ပျက်ရက်ထဲ့ပါ" value="" >
-                            <script>
-                             
+                            <script>                            
                                     var absence=document.getElementById('absence');
-                                    var absenceday=document.getElementById('absenceday');
-        
-                                    absenceday.addEventListener('input',function(){
-                                      
-                                            var amount=parseInt(absenceday.value)*{{$reservationData->staffprofile->BASIC_SALARY}};
-                                            absence.value=amount;
-                                        
-                                        
-                                    
-                                    });
-                                    
-                                
+                                    var absenceday=document.getElementById('absenceday');        
+                                    absenceday.addEventListener('input',function(){                                     
+                                            var amount=parseInt(absenceday.value)*({{$reservationData->staffprofile->BASIC_SALARY}}/30);
+                                            absence.value=amount;                                                                                                                  
+                                    });                                                                   
                             </script>
                         </div>
-                    </div>
-                    
-                    
+                    </div>    
                 </div>
                 <div class="mb-3">
                     <label for="ssbFee" class="form-label">လူမှု့ဖူလုံရေ</label>
@@ -176,6 +192,25 @@
 
                     @endforeach
            </tbody>
+
+           <tfoot class="table table-warning">
+                <th> {{$count}}ယောက် </th>
+                <th> </th>
+                <th>{{$rareCost}}</th>
+                <th>{{$bonus}} </th>
+                <th>{{$attendedBonus}}</th>
+                <th>{{$busFee}}</th>
+                <th>{{$advance_salary}}</th>
+                <th>{{$mealDeduct}}</th>
+                <th>{{$absence}}</th>
+                <th>{{$ssbFee}}</th>
+                <th>{{$fine}}</th>
+                <th>{{$redeem}}</th> 
+                <th></th>
+                <th>{{$otherDeduct}}</th>
+                <th></th>
+                <th></th>
+           </tfoot>
         </table>
        
   </div>

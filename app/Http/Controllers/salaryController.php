@@ -8,13 +8,17 @@ use App\Models\Salary;
 use App\Models\reservation;
 use App\Models\StaffProfile;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class salaryController extends Controller
 {
     public function addsalary($id, Request $request)
     {
-        $currentMonth = Carbon::now()->format('m');
-        $currentYear = Carbon::now()->format('Y');
+        // $currentMonth = (new \DateTime())->format('m');
+        // $currentYear = (new \DateTime())->format('y');
+         
+        $currentMonth = date('m');
+        $currentYear = date('Y');
         $checkreservation = reservation::where('staff_id', $id)->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->get();
 
         if ($checkreservation->count() > 0) {
@@ -85,12 +89,16 @@ class salaryController extends Controller
     }
     public function showsalary()
     {
-        $currentMonth = Carbon::now()->format('m');
-        $currentYear = Carbon::now()->format('Y');
+        // $currentMonth = (new \DateTime())->format('m');
+        // $currentYear = (new \DateTime())->format('y');
+          
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
         $selecteddep = request()->searchby;
         $showdep=WorkingDepList::find($selecteddep);
         $selectedMonth = request()->input('monthPicker');
-        $serachbydep = WorkingDepList::all();
+        $serachbydep = WorkingDepList::all(['*']);
         $action = request()->input('action');
 
          
@@ -112,7 +120,7 @@ class salaryController extends Controller
             }
 
 
-            $salaries = $salaries->get();
+            $salaries = $salaries->get('*');
             return view('Salaries.salary', ['salaries' => $salaries,'deps' => $showdep ,'depforoption'=>$serachbydep,])->with('showtotal',$showdep) ;
         } 
 
@@ -121,24 +129,24 @@ class salaryController extends Controller
 
                 $startDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->startOfMonth();
                 $endDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->endOfMonth();
-                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime]);
+                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime])->orderByDesc('Final_Total');
             } elseif ($selecteddep) {
                 return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
             } elseif ($selectedMonth) {
                 return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
             } else {
-                $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear);
+                $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->orderByDesc('Final_Total');
             }
 
 
-            $salaries = $salaries->get();
+            $salaries = $salaries->get(['*']);
 
 
             return view('Salaries.salariesreport', ['salaries' => $salaries,'deps' => $showdep,'datemonth'=> $selectedMonth]);
 
         } else {
                 $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear);
-            $salaries = $salaries->get();
+            $salaries = $salaries->get(['*']);
             return view('Salaries.salary', ['salaries' => $salaries,'depforoption'=>$serachbydep,'deps' => "ဌာနအားလုံး"]);
         }
 
@@ -148,8 +156,8 @@ class salaryController extends Controller
     }
     public function deletesalary($id, Request $request)
     {
-        $currentMonth = Carbon::now()->format('m');
-        $currentYear = Carbon::now()->format('Y');
+        $currentMonth = (new \DateTime())->format('m');
+        $currentYear = (new \DateTime())->format('y');
         $salarydelete = Salary::find($id);
         $salarydelete->delete();
 
@@ -159,9 +167,34 @@ class salaryController extends Controller
         $deletedmessage = $request->query('profileName');
         return redirect('/salaries')->with('deleted', "ဝန်ထမ်း $deletedmessage ကို ($currentMonth/$currentYear) လစာပေးစာရင်းမှဖျက်ပြီးပါပြီ");
     }
-    public function report()
+    public function report(Request $request)
     {
-        return view('Salaries.report');
+
+        $selecteddate = $request->query('monthPicker'); // Assuming this is where you're getting the selected date
+
+        // Convert the selected date to a format that Carbon can understand
+        $timestamp = strtotime($selecteddate);
+        
+         
+       
+        if($selecteddate){
+            $startDateTime = date('Y-m-01 00:00:00', $timestamp);
+            $endDateTime = date('Y-m-t 23:59:59', $timestamp);
+            $summary = WorkingDepList::select('working_dep_lists.id as dep_id', 'dep_name', 
+            DB::raw('COUNT(DISTINCT salaries.staff_id) as staff_count'),
+            DB::raw('SUM(salaries.Final_Total) as total_salary')
+        )
+        ->leftJoin('salaries', 'working_dep_lists.id', '=', 'salaries.dep')
+        ->whereBetween('salaries.created_at', [$startDateTime,$endDateTime])
+         
+        ->groupBy('working_dep_lists.id', 'dep_name')
+        ->get();
+        
+    } else {
+        // Handle the case when no date is selected
+        $summary = []; // Empty array or null as needed
+    }
+    return view('Salaries.report',['report'=>$summary]);
     }
 
 }

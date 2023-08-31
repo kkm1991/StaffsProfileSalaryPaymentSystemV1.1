@@ -16,8 +16,9 @@ class reservationController extends Controller
 {
      
     public function show($id){
-        $currentMonth = Carbon::now()->format('m');
-        $currentYear = Carbon::now()->format('Y');
+           
+        $currentMonth = date('m');
+        $currentYear = date('Y');
         $checkreservation=reservation::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
         $staffinfo=StaffProfile::find($id);
         if($checkreservation->count()>0){
@@ -70,8 +71,10 @@ class reservationController extends Controller
 
      
     public function defaultreservationpage(){
-        $currentMonth = Carbon::now()->format('m');
-        $currentYear = Carbon::now()->format('Y');
+           
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        
         $currentMonthReservation= reservation::whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
 
             return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation]);

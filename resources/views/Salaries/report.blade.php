@@ -15,7 +15,7 @@
 </style>
 <div class="container">
     <div  class="card ng-white shadow-sm" style=" width:210mm; padding: 10px; margin:10px;">
-        <form action="/report/show" method="GET">
+        <form action="" method="GET">
             @csrf
             <div class="row"> 
                 <div class="col">
@@ -34,9 +34,20 @@
                 <th>ဝန်ထမ်းအရေအတွက်</th>
                 <th>စုစုပေါင်းလစာ</th>
             </thead>
-            <tbody></tbody>
-        </table>
-        
+            <tbody>
+                @foreach ($report as $item)
+                <tr>
+                    <th> {{1}}</th>
+                     <th>{{$item->dep_name}}</th>
+                      <th>{{$item->staff_count}} ယောက်</th>
+                    <th>{{$item->total_salary}}</th>   
+                </tr>
+              @endforeach   
+  
+              </tbody>
+            </table>
+           
+       
     </div>
     <div class="card ng-white shadow-sm" style="width: 210mm; padding:10px; margin:10px">
         <button class="btn btn-primary" onclick="window.print()"><img src="{{asset("storage/logos/printer.png")}}"  alt="Logo"width="25" height="25"></a></button>

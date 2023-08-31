@@ -6,14 +6,14 @@
     body * {
       visibility: hidden;
     }
-     #payslipModal,
-    #payslipModal * {
+     .printM,
+     .printM * {
       visibility: visible;
     }
     .modal-footer {
       display: none;
     }
-    #payslipModal {
+    .printM {
       position: absolute;
       left: 0;
       top: 0;
@@ -145,8 +145,8 @@
                         <td style="color: blue; font-weight: bold;"> {{$salary->Final_Total}}</td>
                         <td > <a href="{{url("/salary/delete/$salary->id?profileName=$profilename")}}" class="btn btn-sm p-0"><img src="{{asset("storage/logos/delete_cycle.png")}}"  alt="Logo"width="30" height="30"></a></td>
                         <!-- payslip button and modal -->
-                        <td><button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#payslipModal"><img src="{{asset("storage/logos/images.png")}}"  alt="Logo"width="30" height="30"></button></td>
-                        <div class="modal fade" id="payslipModal" tabindex="-1" aria-labelledby="payslipModalLabel" aria-hidden="true">
+                        <td><button class="btn btn-sm p-0" data-bs-toggle="modal" data-bs-target="#payslipModal{{$salary->id}}"><img src="{{asset("storage/logos/images.png")}}"  alt="Logo"width="30" height="30"></button></td>
+                        <div class="modal printM fade" id="payslipModal{{$salary->id}}" tabindex="-1" aria-labelledby="payslipModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">

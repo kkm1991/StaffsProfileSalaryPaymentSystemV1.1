@@ -20,7 +20,7 @@ class StaffProfileController extends Controller
 
    public function index(){
      
-    $searchbydep=WorkingDepList::all();
+    $searchbydep=WorkingDepList::all(['*']);
     if(request()->searchby=="")
     {
       $table=StaffProfile::latest()->get();
@@ -32,10 +32,17 @@ class StaffProfileController extends Controller
    }
     
    public function showstatuslist(){
+      
+      $currentMonth = date('m');
+        $currentYear = date('Y');
        
-      $searchbydep=WorkingDepList::all();
+      $searchbydep=WorkingDepList::all(['*']);
       //ယခုလတွက်လစာပေးပြီးသား သူတွေကိုမပြပဲ ပေးရန်ကျန်တဲ့သူတွေကိုသာပြရန်
-      $staffIds = Salary::pluck('staff_id')->toArray();
+      $staffIds = Salary::whereMonth('created_at', $currentMonth)
+      ->whereYear('created_at', $currentYear)
+      ->pluck('staff_id')
+      ->toArray();
+
       if (request()->searchby == "") {
          
          $table = StaffProfile::where('STATUS', 1)
@@ -56,9 +63,9 @@ class StaffProfileController extends Controller
    }
     
    public function add(){
-      $education=EducationList::all();
-      $deps=WorkingDepList::all();
-      $positions=PositionList::all();
+      $education=EducationList::all(['*']);
+      $deps=WorkingDepList::all(['*']);
+      $positions=PositionList::all(['*']);
 
       return view('StaffProfiles.add',['education'=>$education,'deps'=>$deps,'pos'=>$positions] );
    }
@@ -119,9 +126,9 @@ class StaffProfileController extends Controller
    // update မလုပ်ခင် ရွေးလိုက်တဲ့ profile ရဲ့ data ကိုလာပြရန်
    public function editprofile($id){
       $toeditdata=StaffProfile::find($id);
-      $education=EducationList::all();
-      $deps=WorkingDepList::all();
-      $positions=PositionList::all();
+      $education=EducationList::all(['*']);
+      $deps=WorkingDepList::all(['*']);
+      $positions=PositionList::all(['*']);
       return view('StaffProfiles.edit',['profiledata'=>$toeditdata,'education'=>$education,'deps'=>$deps,'pos'=>$positions]);
        
    }
