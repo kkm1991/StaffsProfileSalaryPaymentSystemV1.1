@@ -62,4 +62,5 @@ Route::get('/salaries',[salaryController::class,'showsalary']);
 Route::get('/salaries/report',[salaryController::class,'report']);
 Route::get('/salary/delete/{id}',[salaryController::class,'deletesalary']);
 Route::get('/salary/report',[salaryController::class,'salaryreport']);
+Route::post('/salary/edit/{id}',[salaryController::class,'salaryandreservationedit']);
  

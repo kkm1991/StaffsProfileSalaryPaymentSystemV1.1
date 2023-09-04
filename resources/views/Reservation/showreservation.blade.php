@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="absence" class="form-label">အလုပ်ပျက်ရက်နူတ်</label>
-                            <input type="text" id="absence" name="absence" class="form-control" value="{{$showreserve->absence}}" >
+                            <input type="text" readonly id="absence" name="absence" class="form-control" value="{{$showreserve->absence}}" >
                         </div>
                         <div class="col-6">
                             <label for="absence" class="form-label">အလုပ်ပျက်ရက်ထဲ့ရန်</label>
@@ -57,7 +57,7 @@
         
                                     absenceday.addEventListener('input',function(){
                                       
-                                            var amount=parseInt(absenceday.value)*({{$staffid->BASIC_SALARY}}/30);
+                                            var amount=parseFloat(absenceday.value)*({{$staffid->BASIC_SALARY}}/30);
                                             absence.value=amount;
                                         
                                         

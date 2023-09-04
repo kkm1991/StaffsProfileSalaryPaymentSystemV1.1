@@ -197,4 +197,86 @@ class salaryController extends Controller
     return view('Salaries.report',['report'=>$summary]);
     }
 
+    
+     
+    public function salaryandreservationedit($salaryid){
+       
+        $validator=validator((request()->all()),[
+            'rarecost'=>'required|numeric',
+            'bonus'=>'required|numeric',
+            'attendedbonus'=>'required|numeric',
+            'busfee'=>'required|numeric',
+            'mealdeduct'=>'required|numeric',
+            'absence'=>'required|numeric',
+            'ssbfee'=>'required|numeric',
+            'fine'=>'required|numeric',
+            'redeem'=>'required|numeric',
+            'other'=>'required|numeric', 
+         ]);
+         if($validator->fails()){
+            return back()->withErrors($validator);
+         }
+
+        $updatesalary=Salary::find($salaryid);
+         $updatesalary->update([
+            'rareCost'=>request()->rarecost,
+            'bonus'=>request()->bonus,
+            'attendedBonus'=>request()->attendedbonus,
+            'busFee'=>request()->busfee,
+            'First_Total'=>request()->firsttotal,
+
+            'advance_salary'=>request()->advancesalary,
+            'mealDeduct'=>request()->mealdeduct,
+            'absence'=>request()->absence,
+            'ssbFee'=>request()->ssbfee,
+            'fine'=>request()->fine,
+            'redeem'=>request()->redeem,
+            'otherDeductLable'=>request()->otherlabel,
+            'otherDeduct'=>request()->other,
+            'Final_Total'=>request()->finaltotal,
+         ]);
+         $staffid=request()->input('staffid');
+         $created=$updatesalary->created_at;
+        
+    $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $created)->startOfMonth();
+    $endDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $created)->endOfMonth();
+       $this->updatereservationFromSalary($staffid,$startDateTime,$endDateTime);
+       
+          
+         return redirect('/salaries');
+    }
+    public function updatereservationFromSalary($staffid,$startDateTime,$endDateTime){
+        $updatereservation=reservation::find($staffid)->whereBetween('created_at', [$startDateTime, $endDateTime]);
+        //  $updatereservation->rareCost =request()->rarecost;
+        //  $updatereservation->bonus =request()->bonus;
+        //  $updatereservation->attendedBonus =request()->attendedbonus;
+        //  $updatereservation->busFee =request()->busfee;
+        //  $updatereservation->advance_salary =request()->advancesalary;
+        //  $updatereservation->mealDeduct =request()->mealdeduct;
+        //  $updatereservation->absence =request()->absence;
+        //  $updatereservation->ssbFee =request()->ssbfee;
+        //  $updatereservation->fine =request()->fine;
+        //  $updatereservation->redeem =request()->redeem;
+        //  $updatereservation->otherDeductLable =request()->otherlabel;
+        //  $updatereservation->otherDeduct =request()->other;
+          
+        //  $updatereservation->update();
+
+
+         $updatereservation->update([
+            'rareCost'=>request()->rarecost,
+            'bonus'=>request()->bonus,
+            'attendedBonus'=>request()->attendedbonus,
+            'busFee'=>request()->busfee,
+
+            'advance_salary'=>request()->advancesalary,
+            'mealDeduct'=>request()->mealdeduct,
+            'absence'=>request()->absence,
+            'ssbFee'=>request()->ssbfee,
+            'fine'=>request()->fine,
+            'redeem'=>request()->redeem,
+            'otherDeductLable'=>request()->otherlabel,
+            'otherDeduct'=>request()->other,
+         ]);
+    }
 }

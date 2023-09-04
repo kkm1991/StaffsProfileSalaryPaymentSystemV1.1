@@ -9,7 +9,7 @@
                     @csrf
                     <label for="floatingmonthPicker" class="p-3">ကြိုတင်စာရင်းပြန်ကြည့်ရန် နှစ်/လရွေးပါ</label>
                     <input class="form-control ms-3 mb-3  " type="month" id="floatingmonthPicker" name="monthPicker"> 
-                    <button type="submit" class="  btn btn-outline-success ms-3 mb-3">ရှာရန်</button>
+                    <button type="submit" name="btnsearch" class="  btn btn-outline-success ms-3 mb-3">ရှာရန်</button>
                 </form>   
                                                               
             </div>
@@ -143,7 +143,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="absence" class="form-label">အလုပ်ပျက်ရက်နူတ်</label>
-                            <input type="text" id="absence" name="absence" class="form-control" value="{{$reservationData->absence }}" >
+                            <input type="text" id="absence" readonly name="absence" class="form-control" value="{{$reservationData->absence }}" >
                         </div>
                         <div class="col-6">
                             <label for="absenceday" class="form-label">အလုပ်ပျက်ရက်ထဲ့ရန်</label>
@@ -152,7 +152,7 @@
                                     var absence=document.getElementById('absence');
                                     var absenceday=document.getElementById('absenceday');        
                                     absenceday.addEventListener('input',function(){                                     
-                                            var amount=parseInt(absenceday.value)*({{$reservationData->staffprofile->BASIC_SALARY}}/30);
+                                            var amount=parseFloat(absenceday.value)*({{$reservationData->staffprofile->BASIC_SALARY}}/30);
                                             absence.value=amount;                                                                                                                  
                                     });                                                                   
                             </script>

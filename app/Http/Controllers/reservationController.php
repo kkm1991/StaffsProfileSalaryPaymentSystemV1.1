@@ -72,12 +72,26 @@ class reservationController extends Controller
      
     public function defaultreservationpage(){
            
-        $currentMonth = date('m');
-        $currentYear = date('Y');
-        
-        $currentMonthReservation= reservation::whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
+        $selectedMonth = request()->input('monthPicker');
+        if($selectedMonth){
+           
+            $timestamp = strtotime($selectedMonth);
+            $startDateTime = date('Y-m-01 00:00:00', $timestamp);
+            $endDateTime = date('Y-m-t 23:59:59', $timestamp);
 
+            $currentMonthReservation= reservation::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
             return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation]);
+             
+        }
+        else{
+            $currentMonth = date('m');
+            $currentYear = date('Y');
+            
+            $currentMonthReservation= reservation::whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
+    
+                return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation]);
+        }
+        
     }
 
     public function defaultreservationUpdate($reservationid){
@@ -101,4 +115,5 @@ class reservationController extends Controller
             
         
     }
+
 }
