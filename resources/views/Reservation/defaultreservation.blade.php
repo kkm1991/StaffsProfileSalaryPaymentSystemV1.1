@@ -9,21 +9,29 @@
                     @csrf
                     <label for="floatingmonthPicker" class="p-3">ကြိုတင်စာရင်းပြန်ကြည့်ရန် နှစ်/လရွေးပါ</label>
                     <input class="form-control ms-3 mb-3  " type="month" id="floatingmonthPicker" name="monthPicker"> 
-                    <button type="submit" name="btnsearch" class="  btn btn-outline-success ms-3 mb-3">ရှာရန်</button>
+                    <button type="submit" name="btnsearch" id="btnsearch" class="  btn btn-outline-success ms-3 mb-3">ရှာရန်</button>
                 </form>   
                                                               
             </div>
         </div>
     </div>
     
-    <div class="card shadow">
+    <div class="card shadow w-100">
+       
 
-        <div class="form-floating m-2">
+        <div class="form-floating m-2 d-inline-block ">
             <textarea class="form-control" onkeyup="searchfunction()" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-            <label for="floatingTextarea">ဝန်ထမ်းအမည်နှင့်ရှာရန်</label>
+            <label for="floatingTextarea">ဝန်ထမ်းအမည်နှင့်ရှာရန်</label> 
+             
+            <a href="/default/add" class="btn btn-primary mt-2"> Add New Default Reservation</a>
         </div>
-         
-        <div class=" m-2">
+        @if(session('success')) <!-- profile deleted alert -->
+        <div id="session-alert" class="alert alert-success">{{session('success')}}
+        @endif
+        @if(session('alreadyexit'))
+        <div id="session-alert" class="alert alert-warning">{{session('alreadyexit')}}</div>
+        @endif
+        
             @php
                 $count=0;
                 $rareCost=0;
@@ -52,7 +60,8 @@
                   $otherDeduct+= $reservationData->otherDeduct;
                 }
             @endphp
-        </div>
+            
+        
         <table class=" table table-hover table-bordered" id="myTable">
             <thead class="table-success">
                 <th>အမည်</th>
@@ -92,9 +101,15 @@
                             <td class="fw-bold ">{{$reservationData->redeem }}</td>
                             <td class="fw-bold ">{{$reservationData->otherDeductLable }}</td>
                             <td class="fw-bold ">{{$reservationData->otherDeduct }}</td>
-                            <td class="fw-bold ">{{$reservationData->created_at->format('d M Y') }}</td>
+                           @if($default==true)
+                            <td class="fw-bold " id="createdat">DEFAULT</td>  
+                            @elseif($default==false)
+                            <td class="fw-bold " id="createdat">{{$reservationData->created_at }}</td>
+                          @endif
+
                             <td class="fw-bold "><button type="button"class="btn btn-outline-warning text-dark" data-bs-toggle="modal" data-bs-target="#reservationEditModal{{$reservationData->id}}" >Edit</button></td>
                          </tr>
+                          
                         
                          {{-- edit reservation modal start --}}
   <div class="modal fade" id="reservationEditModal{{$reservationData->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -103,6 +118,7 @@
         <form action="/default/update/{{$reservationData->id}}" method="POST">
             @csrf
             <input type="hidden" name="reservationId" value="{{$reservationData->id}}">
+            <input type="hidden" name="DEFAULT" @if($default==true) value="DEFAULT"@endif >
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">{{$reservationData->staffprofile->Name}} : {{$reservationData->staffprofile->workingdeps->dep_name}} : ID - {{$reservationData->id}} </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -187,7 +203,7 @@
       </div>
     </div>
   </div>
-</div>
+
   {{-- edit reservation modal end --}}
 
                     @endforeach
@@ -214,6 +230,7 @@
         </table>
        
   </div>
+</div> 
   <script>
     function searchfunction(){
          // Declare variables

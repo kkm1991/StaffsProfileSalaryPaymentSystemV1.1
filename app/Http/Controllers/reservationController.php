@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DefaultReservation;
 use App\Models\reservation;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
@@ -80,24 +81,31 @@ class reservationController extends Controller
             $endDateTime = date('Y-m-t 23:59:59', $timestamp);
 
             $currentMonthReservation= reservation::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
-            return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation]);
+            $result=false;
+            return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation,'default'=>$result]) ;
              
         }
         else{
-            $currentMonth = date('m');
-            $currentYear = date('Y');
-            
-            $currentMonthReservation= reservation::whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
-    
-                return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation]);
+            $currentMonthReservation= DefaultReservation::all();
+            $result=true;
+                return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation,'default'=>$result]) ;
+                 
         }
         
     }
 
     public function defaultreservationUpdate($reservationid){
-         
-        
+          
+        $default=request()->DEFAULT;
+        if($default=='DEFAULT'){
+            $updatereservation=DefaultReservation::find($reservationid);
+        }
+        else
+        {
             $updatereservation=reservation::find($reservationid);
+        }
+        
+           
             $updatereservation->rareCost=request()->rareCost;
             $updatereservation->bonus=request()->bonus;
             $updatereservation->attendedBonus=request()->attendedBonus;
@@ -115,5 +123,38 @@ class reservationController extends Controller
             
         
     }
+  public function addnewdefaultreservation(){
+    $table=StaffProfile::where('STATUS', 1)
+    ->get();
+    
+    return view('Reservation.newdefaultreservation',['staffs'=>$table]);
+  }
+  public function createnewdefaultreservation(){
+
+        $checkdefaultreservation=DefaultReservation::where('staff_id', request()->staff_id)->get();
+    if($checkdefaultreservation->count()>0){
+        return redirect('/default')->with('alreadyexit',"ပုံသေ ကြိုတင်စာရင်းထဲ့တွင်ရှိပြီးသားဖြစ်ပါသည်");
+    }
+    else{
+        $addreservation=new DefaultReservation;
+        $addreservation->rareCost=request()->rareCost;
+        $addreservation->bonus=request()->bonus;
+        $addreservation->attendedBonus=request()->attendedBonus;
+        $addreservation->busFee=request()->busFee;
+        $addreservation->mealDeduct=request()->mealDeduct;
+        $addreservation->absence=request()->absence;
+        $addreservation->ssbFee=request()->ssbFee;
+        $addreservation->fine=request()->fine;
+        $addreservation->redeem=request()->redeem;
+        $addreservation->otherDeductLable=request()->otherDeductLable;
+        $addreservation->otherDeduct=request()->otherDeduct;
+        $addreservation->advance_salary=request()->advanceSalary;
+        $addreservation->staff_id=request()->staff_id ;
+         
+        $addreservation->save();
+        return redirect('/default')->with('success',"ပုံသေ ကြိုတင်စာရင်းဝင်ရောက်သွားပါပြီ");
+    }
+        
+  }
 
 }

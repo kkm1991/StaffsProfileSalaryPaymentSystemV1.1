@@ -23,7 +23,7 @@
      <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\brands.css">
      <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\fontawesome.css">
      <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\solid.css">
-     
+     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 </head>
 <body>
     <div id="app">
@@ -177,7 +177,7 @@
       </div>
     </div>
   </div>
-
+  <script src="{{ asset('js/custom.js') }}"></script>
         <main class="py-4">
             @yield('content')
         </main>

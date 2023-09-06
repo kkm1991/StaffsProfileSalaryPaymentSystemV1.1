@@ -47,6 +47,8 @@ Route::get('/reservation/{id}',[reservationController::class,'show']);
 Route::post('/reservation/add',[reservationController::class,'create']);
 Route::post('/reservation/update',[reservationController::class,'update']);
 Route::get('/default',[reservationController::class,'defaultreservationpage']);
+Route::get('/default/add',[reservationController::class,'addnewdefaultreservation']);
+Route::post('/default/create',[reservationController::class,'createnewdefaultreservation']);
 Route::post('/default/update/{id}',[reservationController::class,'defaultreservationUpdate']);
  
 
