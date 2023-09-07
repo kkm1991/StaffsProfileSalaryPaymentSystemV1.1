@@ -22,11 +22,14 @@ class reservationController extends Controller
         $currentYear = date('Y');
         $checkreservation=reservation::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
         $staffinfo=StaffProfile::find($id);
+        $defaultReservation=DefaultReservation::where('staff_id',$id)->get();
+
         if($checkreservation->count()>0){
             return view('Reservation.showreservation',['showreservation'=>$checkreservation],['staffid'=>$staffinfo]);
         }
         else{
-            return view('Reservation.newreservation',['staffid'=>$staffinfo]);
+           
+            return view('Reservation.newreservation',['defaultreservation'=>$defaultReservation,'staffid'=>$staffinfo]);
         }
        
          
