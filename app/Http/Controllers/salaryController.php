@@ -110,13 +110,13 @@ class salaryController extends Controller
 
                 $startDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->startOfMonth();
                 $endDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->endOfMonth();
-                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime]);
+                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime])->orderByDesc('basicSalary');
             } elseif ($selecteddep) {
                 return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
             } elseif ($selectedMonth) {
                 return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
             } else {
-                $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear);
+                $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->orderByDesc('basicSalary');
             }
 
 
@@ -129,13 +129,13 @@ class salaryController extends Controller
 
                 $startDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->startOfMonth();
                 $endDateTime = Carbon::createFromFormat('Y-m-d', $selectedMonth . '-01')->endOfMonth();
-                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime])->orderByDesc('Final_Total');
+                $salaries->where('dep', $selecteddep)->whereBetween('created_at', [$startDateTime, $endDateTime])->orderByDesc('basicSalary');
             } elseif ($selecteddep) {
                 return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
             } elseif ($selectedMonth) {
                 return redirect('/salaries')->with('warning', "ဌာန နှင့် လ/နှစ် စုံအောင်ရွေးပေးပါ");
             } else {
-                $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->orderByDesc('Final_Total');
+                $salaries->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->orderByDesc('basicSalary');
             }
 
 
