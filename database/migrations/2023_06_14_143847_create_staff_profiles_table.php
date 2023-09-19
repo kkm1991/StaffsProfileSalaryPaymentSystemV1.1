@@ -27,6 +27,7 @@ class CreateStaffProfilesTable extends Migration
             $table->text('ADDRESS');
             $table->string('PHOTO_NAME');
             $table->boolean('STATUS');
+            $table->date('START_WORKING_DATE');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@
                            </li>
                             @endforeach
                         </ol>
-                        
+
                     </div>
                 @endif
             </div>
@@ -44,7 +44,11 @@
                              <option value="{{$educationlist['id']}}">{{$educationlist['education']}}</option>
                             @endforeach
                         </select>
-                        
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="startworkingdate">အလုပ်ဝင်ရက်စွဲ :</label>
+                        <input type="date" id="startworkingdate" name="startworkingdate" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="">WORKING DEPARTMENT</label>
@@ -54,7 +58,7 @@
                              <option value="{{$dep['id']}}">{{$dep['dep_name']}}</option>
                             @endforeach
                         </select>
-                        
+
                     </div>
                     <div class="mb-3">
                         <label for="">POSITION</label>
@@ -87,6 +91,6 @@
         </div>
     </div>
 </div>
- 
-    
+
+
 @endsection
