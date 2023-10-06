@@ -1,16 +1,31 @@
 @extends('layouts/app')
 @section('content')
 <style>
+
+@media print {
+    body * {
+      visibility: hidden;
+
+    }
+     .staff-card,
+    .staff-card * {
+      visibility: visible;
+      margin: 0%;s
+    }
+
+    }
+
+
   .staff-card {
-   
+
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
   width: 250px;
-   
+
   background-size: cover;
   background-position: center;
-   
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .staff-card-overlay {
@@ -66,23 +81,23 @@
             <img class="card-img-top img-fluid staff-card-photo border border-warning border-4" src="{{ asset('storage/staffimages/' . $forstaffcard->PHOTO_NAME) }}" alt="{{ $forstaffcard->PHOTO_NAME }}" style="width:75px;height:100px">
           </div>
           <div class="staff-card-body">
-            <div class="border bg-success p-2 mt-2 rounded-pill text-white"><h5>{{$forstaffcard->Name}}</h5></div> 
-            <div class="border border-success p-2 mt-2 rounded-pill"> ID - {{$forstaffcard->id}}</div> 
-            <div class="border  border-success p-2 mt-2 rounded-pill"> ဌာန - {{$forstaffcard->workingdeps->dep_name}}</div> 
-            <div class="border  border-success p-2 mt-2 rounded-pill">ရာထူး - {{$forstaffcard->positions->position_name}}</div> 
-             
-            
+            <div class="border bg-success p-2 mt-2 rounded-pill text-white"><h5>{{$forstaffcard->Name}}</h5></div>
+            <div class="border border-success p-2 mt-2 rounded-pill"> ID - {{$forstaffcard->id}}</div>
+            <div class="border  border-success p-2 mt-2 rounded-pill"> ဌာန - {{$forstaffcard->workingdeps->dep_name}}</div>
+            <div class="border  border-success p-2 mt-2 rounded-pill">ရာထူး - {{$forstaffcard->positions->position_name}}</div>
+
+
           </div>
           <div class="staff-card-footer">
-            <img src="{{asset("storage/logos/MZTMlogo.jpg")}}"  alt="Logo"width="50" height="50"> MitzuTunMyint Co.,ltd  
+            <img src="{{asset("storage/logos/MZTMlogo.jpg")}}"  alt="Logo"width="50" height="50"> MitzuTunMyint Co.,ltd
           </div>
         </div>
-          
+
         <!-- Additional content for the card body if needed -->
       </div>
       <div class="card-footer">
         <!-- Footer content if needed -->
-        <button type="button" class="btn btn-outline-info" >Print</button>
+        <button type="button" onclick="window.print()" class="btn btn-outline-info" >Print</button>
         <button type="button" onclick="cancleform()" class="btn btn-outline-danger">Cancle</button>
       </div>
     </div>

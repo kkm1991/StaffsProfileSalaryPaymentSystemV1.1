@@ -11,13 +11,13 @@ use App\Models\StaffProfile;
 use App\Models\EducationList;
 use App\Models\PositionList;
 use App\Models\WorkingDepList;
- 
+
 
 class reservationController extends Controller
 {
-     
+
     public function show($id){
-           
+
         $currentMonth = date('m');
         $currentYear = date('Y');
         $checkreservation=reservation::where('staff_id',$id)->whereMonth('created_at',$currentMonth)->whereYear('created_at',$currentYear)->get();
@@ -28,11 +28,11 @@ class reservationController extends Controller
             return view('Reservation.showreservation',['showreservation'=>$checkreservation],['staffid'=>$staffinfo]);
         }
         else{
-           
+
             return view('Reservation.newreservation',['defaultreservation'=>$defaultReservation,'staffid'=>$staffinfo]);
         }
-       
-         
+
+
     }
     public function create(){
         $addreservation=new reservation;
@@ -49,13 +49,13 @@ class reservationController extends Controller
         $addreservation->otherDeduct=request()->otherDeduct;
         $addreservation->advance_salary=request()->advanceSalary;
         $addreservation->staff_id=request()->staffid ;
-         
+
         $addreservation->save();
         return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
     }
     public function update(){
-        
-        $updatereservation=reservation::find(request()->reservation_id);
+
+        $updatereservation=reservation::find(request()->s);
         $updatereservation->rareCost=request()->rareCost;
         $updatereservation->bonus=request()->bonus;
         $updatereservation->attendedBonus=request()->attendedBonus;
@@ -70,15 +70,18 @@ class reservationController extends Controller
         $updatereservation->advance_salary=request()->advanceSalary;
         $updatereservation->save();
         return redirect('/paymentlist'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
-        
+
     }
 
-     
+    public function delete($id){
+        reservation::find($id)->delete();
+        return redirect('/default');
+    }
     public function defaultreservationpage(){
-           
+
         $selectedMonth = request()->input('monthPicker');
         if($selectedMonth){
-           
+
             $timestamp = strtotime($selectedMonth);
             $startDateTime = date('Y-m-01 00:00:00', $timestamp);
             $endDateTime = date('Y-m-t 23:59:59', $timestamp);
@@ -86,19 +89,19 @@ class reservationController extends Controller
             $currentMonthReservation= reservation::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
             $result=false;
             return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation,'default'=>$result]) ;
-             
+
         }
         else{
             $currentMonthReservation= DefaultReservation::all();
             $result=true;
                 return view('Reservation.defaultreservation',['reservation'=>$currentMonthReservation,'default'=>$result]) ;
-                 
+
         }
-        
+
     }
 
     public function defaultreservationUpdate($reservationid){
-          
+
         $default=request()->DEFAULT;
         if($default=='DEFAULT'){
             $updatereservation=DefaultReservation::find($reservationid);
@@ -107,8 +110,8 @@ class reservationController extends Controller
         {
             $updatereservation=reservation::find($reservationid);
         }
-        
-           
+
+
             $updatereservation->rareCost=request()->rareCost;
             $updatereservation->bonus=request()->bonus;
             $updatereservation->attendedBonus=request()->attendedBonus;
@@ -123,13 +126,13 @@ class reservationController extends Controller
             $updatereservation->advance_salary=request()->advanceSalary;
             $updatereservation->save();
             return redirect('/default'); //return view ဆိုရင် view folder ထဲကပတ်လမ်းကိုပေးရတာ redirect ဆိုရင် route ထဲကလမ်းကြောင်းပေးရတာ
-            
-        
+
+
     }
   public function addnewdefaultreservation(){
     $table=StaffProfile::where('STATUS', 1)
     ->get();
-    
+
     return view('Reservation.newdefaultreservation',['staffs'=>$table]);
   }
   public function createnewdefaultreservation(){
@@ -153,11 +156,11 @@ class reservationController extends Controller
         $addreservation->otherDeduct=request()->otherDeduct;
         $addreservation->advance_salary=request()->advanceSalary;
         $addreservation->staff_id=request()->staff_id ;
-         
+
         $addreservation->save();
         return redirect('/default')->with('success',"ပုံသေ ကြိုတင်စာရင်းဝင်ရောက်သွားပါပြီ");
     }
-        
+
   }
 
 }

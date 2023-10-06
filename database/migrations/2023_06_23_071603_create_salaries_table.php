@@ -30,6 +30,7 @@ class CreateSalariesTable extends Migration
             $table->string('otherDeductLable');
             $table->integer('otherDeduct');
             $table->integer('staff_id');
+            $table->integer('reservation_id');
             $table->integer('dep');
             $table->integer('Final_Total');
 

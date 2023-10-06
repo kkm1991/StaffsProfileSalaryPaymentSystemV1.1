@@ -37,12 +37,12 @@ class StaffProfileController extends Controller
         $currentYear = date('Y');
 
       $searchbydep=WorkingDepList::all(['*']);
-      //ယခုလတွက်လစာပေးပြီးသား သူတွေကိုမပြပဲ ပေးရန်ကျန်တဲ့သူတွေကိုသာပြရန်
+      //ယခုလတွက်လစာပေးပြီးသား သူတွေရဲ့ id တွေကိုပဲဆွဲထုတ်လိုက်ပြီး $staffIds ထဲထဲ့လိုက်တယ်
       $staffIds = Salary::whereMonth('created_at', $currentMonth)
       ->whereYear('created_at', $currentYear)
-      ->pluck('staff_id')
+      ->pluck('staff_id') //id တစ်column ပဲဆွဲထုတ်တာ
       ->toArray();
-
+// ပြီးတော့မှ  StaffProfile ထဲမှာ အဲ့ဒီ $staffIds ထဲမှာမပါတဲ့သူတွေကိုပဲဆွဲထုတ်ပြီး ပြစေချင်လို. အချုပ်က ယခုလ CURRENT မှာလစာပေးပြီးသားသူတွေကိုမပေါ်စေချင်လို.
       if (request()->searchby == "") {
 
          $table = StaffProfile::where('STATUS', 1)
@@ -50,7 +50,7 @@ class StaffProfileController extends Controller
             ->get();
       } else {
          $table = StaffProfile::where('STATUS', 1)
-            ->where('WORK_DEP', request()->searchby)
+            ->where('WORK_DEP', request()->searchby) // ဌာန အလိုက်ရှာလို ဒီတစ်ကြောင်းတိုးသွားတာ
             ->whereNotIn('id',$staffIds)
             ->get();
       }
@@ -171,5 +171,11 @@ class StaffProfileController extends Controller
    public function staffcard($id){
       $forstaffcard=StaffProfile::find($id);
       return view('StaffProfiles.staffcard',['forstaffcard'=>$forstaffcard]);
+   }
+
+   public function detail($id){
+    $profileDetail=StaffProfile::find($id);
+
+    return view('StaffProfiles.profileDetail',['profileDetail'=>$profileDetail]);
    }
 }

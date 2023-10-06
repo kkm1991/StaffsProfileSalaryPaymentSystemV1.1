@@ -18,17 +18,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <!-- Example for linking the favicon -->
      <link rel="shortcut icon" type="x-icon" href="storage/logos/bsmlogo.png">
-     <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\brands.css">
-     <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\fontawesome.css">
-     <link rel="stylesheet" href=".\node_modules\@fortawesome\fontawesome-free\css\solid.css">
-     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+
+
+
 </head>
-<body>
+<body class="body">
     <div id="app">
-        <nav class="navbar  navbar-expand-md navbar-dark bg-success shadow-sm">
-            <div class="container">
+        <nav class="navbar  navbar-expand-md navbar-dark custom-background-opacity  shadow-lg">
+            <div class="container text-dark">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -39,21 +39,21 @@
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav  me-auto   ">
-                        <li class="nav-item dropdown  ">
+                        <li class="nav-item dropdown   fw-bold  ">
                             <a class="nav-link dropdown-toggle mt-1 border text-center rounded-pill text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               ဝန်ထမ်းရေးရာ
                             </a>
-                            <ul class="dropdown-menu ps-1">
-                              
+                            <ul class="dropdown-menu ps-1 custom-background-opacity">
+
                               <li><a class="dropdown-item ps-1" data-bs-toggle="modal" data-bs-target="#departmentModal"   ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  အလုပ်ဌာန  </a></li>
                               <li><a class="dropdown-item ps-1" data-bs-toggle="modal" data-bs-target="#positionModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ရာထူး  </a></li>
                               <li><a class="dropdown-item ps-1" data-bs-toggle="modal"data-bs-target="#educationModal"    ><img src="{{ asset('storage/logos/Add.png') }}" alt="Logo"width="25" height="25">  ပညာအရည်အချင်း  </a></li>
                             </ul>
                           </li>
-                          <li class="nav-item text-center p-1"><a href="{{url('/paymentlist')}}" class="nav-link  border rounded-pill text-white"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
-                          <li class="nav-item text-center p-1"><a href="{{url('/salaries')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်း</a></li>
-                          <li class="nav-item text-center p-1"><a href="{{url('/salaries/report')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်းအချုပ်</a></li>
-                          <li class="nav-item text-center p-1"><a href="{{url('/default')}}" class="nav-link border rounded-pill text-white"  >  ကြိုတင်စာရင်း</a></li>
+                          <li class="nav-item text-center   fw-bold p-1"><a href="{{url('/paymentlist')}}" class="nav-link  border rounded-pill text-white"  >လစာပေးရန်ဝန်ထမ်းစာရင်း</a></li>
+                          <li class="nav-item text-center   fw-bold p-1"><a href="{{url('/salaries')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်း</a></li>
+                          <li class="nav-item text-center    fw-bold p-1"><a href="{{url('/salaries/report')}}" class="nav-link border rounded-pill text-white"  >   လစာ စာရင်းအချုပ်</a></li>
+                          <li class="nav-item text-center   fw-bold p-1"><a href="{{url('/default')}}" class="nav-link border rounded-pill text-white"  >  ကြိုတင်စာရင်း</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -111,13 +111,13 @@
                             <label for="name">ဌာနအမည်</label><br>
                             <input type="text" class="form-control" id="depname" name="depname" required>
                         </div><br>
-                        
+
                         <!-- Additional form fields... -->
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                   
+
                 </div>
               </div>
             </div>
@@ -138,13 +138,13 @@
                             <label for="name">ရာထူးအမည်</label><br>
                             <input type="text" class="form-control" id="positionname" name="positionname" required>
                         </div><br>
-                        
+
                         <!-- Additional form fields... -->
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                   
+
                 </div>
               </div>
             </div>
@@ -166,13 +166,13 @@
                     <label for="name">ပညာအရည်အချင်းအမည်</label><br>
                     <input type="text" class="form-control" id="eduname" name="eduname" required>
                 </div><br>
-                
+
                 <!-- Additional form fields... -->
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         <div class="modal-footer">
-           
+
         </div>
       </div>
     </div>
