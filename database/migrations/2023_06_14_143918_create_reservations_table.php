@@ -27,6 +27,7 @@ class CreateReservationsTable extends Migration
             $table->string('otherDeductLable');
             $table->integer('otherDeduct');
             $table->integer('staff_id');
+            $table->integer('advance_salary');
             $table->timestamps();
         });
     }

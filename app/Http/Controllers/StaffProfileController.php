@@ -19,7 +19,7 @@ class StaffProfileController extends Controller
 }
 
    public function index(){
-     
+
     $searchbydep=WorkingDepList::all(['*']);
     if(request()->searchby=="")
     {
@@ -30,38 +30,38 @@ class StaffProfileController extends Controller
     }
     return view('StaffProfiles.index',['profiles'=>$table],['deps'=>$searchbydep]);
    }
-    
+
    public function showstatuslist(){
-      
+
       $currentMonth = date('m');
         $currentYear = date('Y');
-       
+
       $searchbydep=WorkingDepList::all(['*']);
-      //ယခုလတွက်လစာပေးပြီးသား သူတွေကိုမပြပဲ ပေးရန်ကျန်တဲ့သူတွေကိုသာပြရန်
+      //ယခုလတွက်လစာပေးပြီးသား သူတွေရဲ့ id တွေကိုပဲဆွဲထုတ်လိုက်ပြီး $staffIds ထဲထဲ့လိုက်တယ်
       $staffIds = Salary::whereMonth('created_at', $currentMonth)
       ->whereYear('created_at', $currentYear)
-      ->pluck('staff_id')
+      ->pluck('staff_id') //id တစ်column ပဲဆွဲထုတ်တာ
       ->toArray();
-
+// ပြီးတော့မှ  StaffProfile ထဲမှာ အဲ့ဒီ $staffIds ထဲမှာမပါတဲ့သူတွေကိုပဲဆွဲထုတ်ပြီး ပြစေချင်လို. အချုပ်က ယခုလ CURRENT မှာလစာပေးပြီးသားသူတွေကိုမပေါ်စေချင်လို.
       if (request()->searchby == "") {
-         
+
          $table = StaffProfile::where('STATUS', 1)
             ->whereNotIn('id', $staffIds)
             ->get();
       } else {
          $table = StaffProfile::where('STATUS', 1)
-            ->where('WORK_DEP', request()->searchby)
+            ->where('WORK_DEP', request()->searchby) // ဌာန အလိုက်ရှာလို ဒီတစ်ကြောင်းတိုးသွားတာ
             ->whereNotIn('id',$staffIds)
             ->get();
       }
-   
-          
+
+
       return view('StaffProfiles.paymentlist',['profiles'=>$table],['deps'=>$searchbydep] );
    }
    public function deductionadding(){
       return view('StaffProfiles.deduction_adding');
    }
-    
+
    public function add(){
       $education=EducationList::all(['*']);
       $deps=WorkingDepList::all(['*']);
@@ -94,7 +94,7 @@ class StaffProfileController extends Controller
       if($validator->fails()){
          return back()->withErrors($validator);
       }
-       
+
       $creatprofile=new StaffProfile;
       $creatprofile->Name=request()->staffname;
       $creatprofile->Father_Name=request()->fathername;
@@ -104,24 +104,25 @@ class StaffProfileController extends Controller
       $creatprofile->WORK_DEP=request()->working_dep_list;
       $creatprofile->WORK_POSITION=request()->position_list;
       $creatprofile->BASIC_SALARY=request()->basic_salary;
+      $creatprofile->START_WORKING_DATE=request()->startworkingdate;
       $creatprofile->DEBT=0;
       $creatprofile->ADDRESS=request()->address;
       if (request()->hasFile('photo')) {
          $photo = request()->file('photo');
-     
+
          if ($photo->isValid()) {
              $name = $photo->getClientOriginalName();
-             $photo->storeAs('staffimages', $name, 'public'); 
+             $photo->storeAs('staffimages', $name, 'public');
          }
      }
-       
+
       $creatprofile->PHOTO_NAME=request()->file('photo')->getClientOriginalName();
       $creatprofile->STATUS=1;
       $creatprofile->save();
       return redirect('/');
    }
    public function toeditprofile(){
-       
+
    }
    // update မလုပ်ခင် ရွေးလိုက်တဲ့ profile ရဲ့ data ကိုလာပြရန်
    public function editprofile($id){
@@ -130,7 +131,7 @@ class StaffProfileController extends Controller
       $deps=WorkingDepList::all(['*']);
       $positions=PositionList::all(['*']);
       return view('StaffProfiles.edit',['profiledata'=>$toeditdata,'education'=>$education,'deps'=>$deps,'pos'=>$positions]);
-       
+
    }
    public function updateprofile($id){
       $toupdate=StaffProfile::find($id);
@@ -142,10 +143,11 @@ class StaffProfileController extends Controller
       $toupdate->WORK_DEP=request()->working_dep_list;
       $toupdate->WORK_POSITION=request()->position_list;
       $toupdate->BASIC_SALARY=request()->basic_salary;
+      $toupdate->START_WORKING_DATE=request()->startworkingdate;
       $toupdate->ADDRESS=request()->address;
       if (request()->hasFile('photo')) {
          $photo = request()->file('photo');
-     
+
          if ($photo->isValid()) {
             //အရင်ပုံအဟောင်းကိုဖျက်တာ
              $oldphoto=$toupdate->PHOTO_NAME;
@@ -169,5 +171,11 @@ class StaffProfileController extends Controller
    public function staffcard($id){
       $forstaffcard=StaffProfile::find($id);
       return view('StaffProfiles.staffcard',['forstaffcard'=>$forstaffcard]);
+   }
+
+   public function detail($id){
+    $profileDetail=StaffProfile::find($id);
+
+    return view('StaffProfiles.profileDetail',['profileDetail'=>$profileDetail]);
    }
 }

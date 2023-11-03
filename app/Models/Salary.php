@@ -21,6 +21,8 @@ class Salary extends Model
         'otherDeductLable',
         'otherDeduct',
         'Final_Total',
+        'created_at',
+        'advance_salary'
         // Add other fields here as needed
     ];
     use HasFactory;
@@ -30,5 +32,5 @@ class Salary extends Model
     public function deps(){
         return $this->belongsTo('App\Models\WorkingDepList','dep');
     }
-    
+
 }

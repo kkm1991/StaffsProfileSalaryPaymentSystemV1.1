@@ -2,28 +2,36 @@
 
 @section('content')
   <div class="container">
-    <div class="card shadow rounded w-50 mb-3 ">
+    <div class="card shadow rounded w-50 mb-3 custom-background-opacity border-0 shadow">
         <div class="row">
             <div class="col-11">
                 <form action="" method="get">
                     @csrf
                     <label for="floatingmonthPicker" class="p-3">ကြိုတင်စာရင်းပြန်ကြည့်ရန် နှစ်/လရွေးပါ</label>
-                    <input class="form-control ms-3 mb-3  " type="month" id="floatingmonthPicker" name="monthPicker"> 
-                    <button type="submit" name="btnsearch" class="  btn btn-outline-success ms-3 mb-3">ရှာရန်</button>
-                </form>   
-                                                              
+                    <input class="form-control ms-3 mb-3  " type="month" id="floatingmonthPicker" name="monthPicker">
+                    <button type="submit" name="btnsearch" id="btnsearch" class="  btn btn-outline-success ms-3 mb-3">ရှာရန်</button>
+                </form>
+
             </div>
         </div>
     </div>
-    
-    <div class="card shadow">
 
-        <div class="form-floating m-2">
+    <div class="card shadow w-100 custom-background-opacity border-0 shadow">
+
+
+        <div class="form-floating m-2 d-inline-block ">
             <textarea class="form-control" onkeyup="searchfunction()" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
             <label for="floatingTextarea">ဝန်ထမ်းအမည်နှင့်ရှာရန်</label>
+
+            <a href="/default/add" class="btn btn-primary mt-2"> Add New Default Reservation</a>
         </div>
-         
-        <div class=" m-2">
+        @if(session('success')) <!-- profile deleted alert -->
+        <div id="session-alert" class="alert alert-success">{{session('success')}}
+        @endif
+        @if(session('alreadyexit'))
+        <div id="session-alert" class="alert alert-warning">{{session('alreadyexit')}}</div>
+        @endif
+
             @php
                 $count=0;
                 $rareCost=0;
@@ -52,7 +60,8 @@
                   $otherDeduct+= $reservationData->otherDeduct;
                 }
             @endphp
-        </div>
+
+
         <table class=" table table-hover table-bordered" id="myTable">
             <thead class="table-success">
                 <th>အမည်</th>
@@ -74,7 +83,7 @@
             </thead>
            <tbody>
                     @foreach($reservation as $reservationData)
-                       
+
                          <tr>
                            <input type="hidden" name="ReservationId" value="{{$reservationData->id}}">
                             <td class="fw-bold  ">{{$reservationData->staffprofile->Name}}</td>
@@ -92,10 +101,43 @@
                             <td class="fw-bold ">{{$reservationData->redeem }}</td>
                             <td class="fw-bold ">{{$reservationData->otherDeductLable }}</td>
                             <td class="fw-bold ">{{$reservationData->otherDeduct }}</td>
-                            <td class="fw-bold ">{{$reservationData->created_at->format('d M Y') }}</td>
-                            <td class="fw-bold "><button type="button"class="btn btn-outline-warning text-dark" data-bs-toggle="modal" data-bs-target="#reservationEditModal{{$reservationData->id}}" >Edit</button></td>
+                           @if($default==true)
+                            <td class="fw-bold " id="createdat">DEFAULT</td>
+                            @elseif($default==false)
+                            <td class="fw-bold " id="createdat">{{$reservationData->created_at }}</td>
+                          @endif
+
+                            <td class="fw-bold ">
+                                <button type="button"class="btn btn-outline-warning text-dark" data-bs-toggle="modal" data-bs-target="#reservationEditModal{{$reservationData->id}}" >Edit</button>
+                                @if($default==false)
+                                <button type="button"class="btn btn-outline-danger text-dark" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $reservationData->id }}" >Delete</button>
+                                @endif
+                            </td>
                          </tr>
-                        
+<!-- delete  confirm modal-->
+<div class="modal fade" id="deleteModal{{ $reservationData->id }}" tabindex="-1"
+    aria-labelledby="deleteModalLabel{{$reservationData->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel{{ $reservationData->id }}">Delete
+                    Salary</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{$reservationData->created_at->format('F Y')}} ရက်စွဲ {{$reservationData->staffprofile->Name }}အတွက် ကြိုတင်ငွေစာရင်းကိုဖျက်မှာသေချာပါသလား</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cancel</button>
+                <a href="{{url("/reservation/delete/".$reservationData->id)}}"
+                    class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
                          {{-- edit reservation modal start --}}
   <div class="modal fade" id="reservationEditModal{{$reservationData->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -103,14 +145,15 @@
         <form action="/default/update/{{$reservationData->id}}" method="POST">
             @csrf
             <input type="hidden" name="reservationId" value="{{$reservationData->id}}">
+            <input type="hidden" name="DEFAULT" @if($default==true) value="DEFAULT"@endif >
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">{{$reservationData->staffprofile->Name}} : {{$reservationData->staffprofile->workingdeps->dep_name}} : ID - {{$reservationData->id}} </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  
+
                 <h5 class="card-title text-success fw-bold">လစာပေါင်းငွေ</h5>
-                     
+
                     <div class="mb-3">
                         <label for="rareCost" class="form-label">ရှားပါးစရိတ်</label>
                         <input type="text" id="rareCost" name="rareCost" class="form-control" value="{{$reservationData->rareCost }}" >
@@ -128,7 +171,7 @@
                         <input type="text" id="busFee" name="busFee" class="form-control" value="{{$reservationData->busFee }}"  >
                     </div>
                     <hr>
-                     
+
                     <h5 class="card-title text-danger fw-bold">ဖြတ်တောက်ငွေ</h5>
                     <div class="mb-3">
                         <label for="advanceSalary" class="form-label">ကြိုတင်လစာယူငွေ</label>
@@ -148,16 +191,16 @@
                         <div class="col-6">
                             <label for="absenceday" class="form-label">အလုပ်ပျက်ရက်ထဲ့ရန်</label>
                             <input type="text" id="absenceday"    name="absenceday" class="form-control"placeholder="အလုပ်ပျက်ရက်ထဲ့ပါ" value="" >
-                            <script>                            
+                            <script>
                                     var absence=document.getElementById('absence');
-                                    var absenceday=document.getElementById('absenceday');        
-                                    absenceday.addEventListener('input',function(){                                     
+                                    var absenceday=document.getElementById('absenceday');
+                                    absenceday.addEventListener('input',function(){
                                             var amount=parseFloat(absenceday.value)*({{$reservationData->staffprofile->BASIC_SALARY}}/30);
-                                            absence.value=amount;                                                                                                                  
-                                    });                                                                   
+                                            absence.value=amount;
+                                    });
                             </script>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="ssbFee" class="form-label">လူမှု့ဖူလုံရေ</label>
@@ -183,11 +226,11 @@
                 <button type="submit" class="btn btn-primary">Save changes</button>
               </div>
         </form>
-        
+
       </div>
     </div>
   </div>
-</div>
+
   {{-- edit reservation modal end --}}
 
                     @endforeach
@@ -205,15 +248,16 @@
                 <th>{{$absence}}</th>
                 <th>{{$ssbFee}}</th>
                 <th>{{$fine}}</th>
-                <th>{{$redeem}}</th> 
+                <th>{{$redeem}}</th>
                 <th></th>
                 <th>{{$otherDeduct}}</th>
                 <th></th>
                 <th></th>
            </tfoot>
         </table>
-       
+
   </div>
+</div>
   <script>
     function searchfunction(){
          // Declare variables
@@ -222,7 +266,7 @@
       filter = input.value.toUpperCase();
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
-    
+
       // Loop through all table rows, and hide those who don't match the search query
       for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
@@ -236,6 +280,6 @@
         }
       }
     }
-</script> 
-  
+</script>
+
 @endsection

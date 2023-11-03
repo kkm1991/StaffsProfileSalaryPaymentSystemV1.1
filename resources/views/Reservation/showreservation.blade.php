@@ -12,7 +12,7 @@
                 <form action="{{url('/reservation/update')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     
-                    <input type="hidden" name="reservation_id"id="reservation_id" value="{{$showreserve->id}}">
+                    <input type="hidden" name="reservation_id" id="reservation_id" value="{{$showreserve->id}}">
                     <h5 class="card-title">လစာပေါင်းငွေ</h5>
                      
                     <div class="mb-3">

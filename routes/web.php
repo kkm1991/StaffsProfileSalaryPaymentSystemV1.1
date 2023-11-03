@@ -7,10 +7,10 @@ use App\Http\Controllers\salaryController;
 use App\Http\Controllers\StaffProfileController;
 use App\Http\Controllers\WorkingDepController;
 use Illuminate\Support\Facades\Route;
- 
- 
 
- 
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- 
+
 
 Auth::routes();
 
@@ -35,6 +35,7 @@ Route::get('/profile/edit/{id}',[StaffProfileController::class,'editprofile']);
 Route::post('/profile/edit/{id}',[StaffProfileController::class,'updateprofile']);
 Route::get('/profile/delete/{id}',[StaffProfileController::class,'deleteprofile']);
 Route::get('/profile/staffcard/{id}',[StaffProfileController::class,'staffcard']);
+Route::get('/profile/detail/{id}',[StaffProfileController::class,'detail'])->name('profile@detail');
 
 Route::get('/status/change/{id}',[StaffProfileController::class,'statuschange']);
 
@@ -46,9 +47,12 @@ Route::get('/deductandadd',[StaffProfileController::class,'deductionadding']);
 Route::get('/reservation/{id}',[reservationController::class,'show']);
 Route::post('/reservation/add',[reservationController::class,'create']);
 Route::post('/reservation/update',[reservationController::class,'update']);
+Route::get('/reservation/delete/{id}',[reservationController::class,'delete']);
 Route::get('/default',[reservationController::class,'defaultreservationpage']);
+Route::get('/default/add',[reservationController::class,'addnewdefaultreservation']);
+Route::post('/default/create',[reservationController::class,'createnewdefaultreservation']);
 Route::post('/default/update/{id}',[reservationController::class,'defaultreservationUpdate']);
- 
+
 
 
 
@@ -62,5 +66,5 @@ Route::get('/salaries',[salaryController::class,'showsalary']);
 Route::get('/salaries/report',[salaryController::class,'report']);
 Route::get('/salary/delete/{id}',[salaryController::class,'deletesalary']);
 Route::get('/salary/report',[salaryController::class,'salaryreport']);
-Route::post('/salary/edit/{id}',[salaryController::class,'salaryandreservationedit']);
- 
+Route::get('/salary/edit/{id}',[salaryController::class,'toupdatepage']);
+Route::post('/salary/update/{id}',[salaryController::class,'salaryandreservationedit']);

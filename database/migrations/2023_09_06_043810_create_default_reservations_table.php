@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalariesTable extends Migration
+class CreateDefaultReservationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateSalariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('salaries', function (Blueprint $table) {
+        Schema::create('default_reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('basicSalary');
             $table->integer('rareCost');
             $table->integer('bonus');
             $table->integer('attendedBonus');
             $table->integer('busFee');
-            $table->integer('First_Total');
-
             $table->integer('mealDeduct');
             $table->integer('absence');
             $table->integer('ssbFee');
@@ -30,10 +27,7 @@ class CreateSalariesTable extends Migration
             $table->string('otherDeductLable');
             $table->integer('otherDeduct');
             $table->integer('staff_id');
-            $table->integer('reservation_id');
-            $table->integer('dep');
-            $table->integer('Final_Total');
-
+            $table->integer('advance_salary');
             $table->timestamps();
         });
     }
@@ -45,6 +39,6 @@ class CreateSalariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salaries');
+        Schema::dropIfExists('default_reservations');
     }
 }
