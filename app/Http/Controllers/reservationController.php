@@ -55,7 +55,7 @@ class reservationController extends Controller
     }
     public function update(){
 
-        $updatereservation=reservation::find(request()->s);
+        $updatereservation=reservation::find(request()->reservation_id);
         $updatereservation->rareCost=request()->rareCost;
         $updatereservation->bonus=request()->bonus;
         $updatereservation->attendedBonus=request()->attendedBonus;

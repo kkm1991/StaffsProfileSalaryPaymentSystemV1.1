@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WorkingDepList;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Salary;
 use App\Models\reservation;
 use App\Models\StaffProfile;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Models\WorkingDepList;
+use App\Models\DefaultReservation;
 use Illuminate\Support\Facades\DB;
 
 class salaryController extends Controller
@@ -25,7 +26,8 @@ class salaryController extends Controller
             $checksalary = Salary::where('staff_id', $id)->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->get();
             if ($checksalary->count() > 0) {
                 return redirect('/paymentlist')->with('alreadypay', 'ယခုဝန်ထမ်းသည်လစာပေးပြီးသားဖြစ်ပါသည်');
-            } else {
+            }
+            else {
                 $basicsalary = $request->query('basic_salary');
                 $paysalary = new Salary;
                 $paysalary->basicSalary = $request->query('basic_salary');
@@ -82,8 +84,74 @@ class salaryController extends Controller
                 }
 
             }
-        } else {
-            return redirect('/paymentlist')->with('warning', 'ယခုဝန်ထမ်းအတွက် ကြိုတင်စာရင်းမထဲ့ရသေးပါ');
+        }
+        else {
+
+            $defaultreservation=DefaultReservation::where('staff_id',$id)->get();
+
+            $checksalary = Salary::where('staff_id', $id)->whereMonth('created_at', $currentMonth)->whereYear('created_at', $currentYear)->get();
+            if ($checksalary->count() > 0) {
+                return redirect('/paymentlist')->with('alreadypay', 'ယခုဝန်ထမ်းသည်လစာပေးပြီးသားဖြစ်ပါသည်');
+            }
+            else {
+                $basicsalary = $request->query('basic_salary');
+                $paysalary = new Salary;
+                $paysalary->basicSalary = $request->query('basic_salary');
+                foreach ($defaultreservation as $reservation) {
+                    $rarecost = $reservation->rareCost;
+                    $bonus = $reservation->bonus;
+                    $attendedBonus = $reservation->attendedBonus;
+                    $busFee = $reservation->busFee;
+                    $First_Total = $basicsalary + ($rarecost + $bonus + $attendedBonus + $busFee);
+
+                    $paysalary->rareCost = $rarecost;
+                    $paysalary->bonus = $bonus;
+                    $paysalary->attendedBonus = $attendedBonus;
+                    $paysalary->busFee = $busFee;
+                    $paysalary->First_Total = $First_Total;
+
+
+                    $advancesalary=$reservation->advance_salary;
+                    $mealDeduct = $reservation->mealDeduct;
+                    $absence = $reservation->absence;
+                    $ssbFee = $reservation->ssbFee;
+                    $fine = $reservation->fine;
+                    $redeem = $reservation->redeem;
+                    $otherDeductLable = $reservation->otherDeductLable;
+                    $otherDeduct = $reservation->otherDeduct;
+                    $staff_id = $reservation->staff_id;
+                    $Final_Total = $First_Total - ($mealDeduct + $absence + $ssbFee + $fine + $redeem + $otherDeduct +$advancesalary);
+
+                    $paysalary->advance_salary=$advancesalary;
+                    $paysalary->mealDeduct = $mealDeduct;
+                    $paysalary->absence = $absence;
+                    $paysalary->ssbFee = $ssbFee;
+                    $paysalary->fine = $fine;
+
+                    $paysalary->redeem = $redeem;
+
+
+                    //ဝန်ထမ်းကြွေးဆပ် ကို အကြွေးစာရင်းထဲကသွားနူတ်
+                    $redeemDept = StaffProfile::find($staff_id);
+                    $redeemDept->DEBT = ($redeemDept->DEBT - $redeem);
+                    $redeemDept->save();
+
+                    $paysalary->otherDeductLable = $otherDeductLable;
+                    $paysalary->otherDeduct = $otherDeduct;
+                    $paysalary->staff_id = $staff_id;
+                    $paysalary->reservation_id=$reservation->id;
+                    $paysalary->dep = $request->query('work_dep');
+                    $paysalary->Final_Total = $Final_Total;
+                    $paysalary->save();
+                    $message = "ဝန်ထမ်း  " . $reservation->staffprofile->Name . " သည်လစာပေးစာရင်းထဲ့ဝင်သွားပါပြီ (Default)";
+                    return redirect('/paymentlist')->with('success', $message);
+
+
+                }
+
+
+            }
+            return redirect('/paymentlist');
         }
 
 
@@ -228,10 +296,6 @@ class salaryController extends Controller
         return view('Salaries.salaryedit',['salary'=>$editsalary]);
     }
     public function salaryandreservationedit($salaryid){
-
-
-
-
 
         $validator=validator((request()->all()),[
             'rarecost'=>'required|numeric',

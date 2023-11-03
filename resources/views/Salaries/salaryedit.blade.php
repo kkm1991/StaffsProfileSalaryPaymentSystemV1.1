@@ -10,17 +10,10 @@
                 @csrf
 
                 <input type="hidden" name="reservationid" id="salaryid" value="{{$salary->reservation_id}}">
-                <input type="text" name="staffid" id="staffid"value="{{$salary->staff_id}}">
+                <input type="hidden" name="staffid" id="staffid"value="{{$salary->staff_id}}">
                 <label for="" name="olddate" style="text-align: center; font-weight: bold;text-decoration: underline;">{{$salary->created_at->format('F Y')}} လစာ</label>
 
-                <div class="row mb-2">
-                    <div class="col-4">
-                        <label for="">Date</label>
-                    </div>
-                    <div class="col-8">
-                        <input class="form-control" value="{{$salary->created_at}}"  type="date" id="monthPicker" name="monthPicker" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
-                    </div>
-                 </div>
+
                 <div class="row mb-2">
                    <div class="col-4">
                        <label for="">ဝန်ထမ်းအမည်</label>
